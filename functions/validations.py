@@ -26,16 +26,7 @@ def validate_identifier(data_list, identifier):
     # Funcion para validar que el legajo no se encuentre registrado en la lista de estudiantes y profesores
     for data in data_list:
         if data[0] == identifier:
-            print("El legajo ingresado ya se encuentra registrado. Ingrese otro legajo.")
             return True
-    return False
-
-def exists_identifier(data_list, identifier):
-    # Funcion para validar que el legajo se encuentre registrado en la lista de estudiantes y profesores
-    for data in data_list:
-        if data[0] == identifier:
-            return True
-    print("El legajo ingresado no se encuentra registrado.")
     return False
 
 def validate_continue(message):

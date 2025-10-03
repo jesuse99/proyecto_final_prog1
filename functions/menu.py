@@ -1,4 +1,4 @@
-from functions.validations import validate_string_input,validate_int_input, validate_identifier, validate_continue, validate_menu_option, exists_identifier
+from functions.validations import validate_string_input,validate_int_input, validate_identifier, validate_continue, validate_menu_option
 
 main_menu = """
 === SISTEMA DE CALIFICACIONES UADE ===
@@ -222,7 +222,7 @@ def edit_degree(data_list, identifier):
 def edit_notes(notes, students, student_identifier, subject_identifier):
     # funcion para editar las notas de un estudiante de la lista de notas si existe
     identifier = validate_int_input("\nIngrese el legajo del estudiante que desea editar: ", "Se ha ingresado un legajo inválido. El legajo no puede ser 0 y solo se permiten valores numéricos, intente nuevamente.")
-    if exists_identifier(students, identifier): 
+    if validate_identifier(students, identifier): 
         # si el legajo existe, se procede a la edicion
         print(f"Editando notas del estudiante con legajo: {identifier}")
         for note in notes:
@@ -245,7 +245,7 @@ def edit_notes(notes, students, student_identifier, subject_identifier):
 def edit_student(students):
     # funcion para editar un estudiante de la lista de estudiantes si existe
     identifier = validate_int_input("\nIngrese el legajo del estudiante que desea editar: ", "Se ha ingresado un legajo inválido. El legajo no puede ser 0 y solo se permiten valores numéricos, intente nuevamente.")
-    if exists_identifier(students, identifier): 
+    if validate_identifier(students, identifier): 
         # si el legajo existe, se procede a la edicion
         print(f"\nEditando estudiante con legajo: {identifier}")
         print(menu_edit_student)
@@ -271,7 +271,7 @@ def edit_student(students):
 def edit_professor(professors):
     # funcion para editar un profesor de la lista de profesores si existe
     identifier = validate_int_input("\nIngrese el legajo del profesor que desea editar: ", "Se ha ingresado un legajo inválido. El legajo no puede ser 0 y solo se permiten valores numéricos, intente nuevamente.")
-    if exists_identifier(professors, identifier):   
+    if validate_identifier(professors, identifier):   
         # si el legajo existe, se procede a la edicion
         print(f"\nEditando profesor con legajo: {identifier}")
         print(menu_edit_professor)
