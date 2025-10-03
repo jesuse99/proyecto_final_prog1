@@ -1,10 +1,5 @@
 from functions.validations import validate_string_input,validate_int_input, validate_option, existing_student
 
-# Declaramos e inicializamos todas las variables 
-students = []
-subjects = []
-notes = []
-
 main_menu = """
 === SISTEMA DE CALIFICACIONES UADE ===
 
@@ -90,7 +85,7 @@ def add_student(students):
     print("Estudiante agregado correctamente.")
 
 
-def add_subject():
+def add_subject(subjects):
     print(subject_menu)
 
     identifier = int(input("ingrese el numero de materia: "))
@@ -107,7 +102,7 @@ def search_for_name(value, list_search):
             result_search.append(item)
     return result_search
 
-def search_students():
+def search_students(students):
     print(search_students_menu)
     
     name = str(input("Ingrese el nombre del estudiante: "))
@@ -118,7 +113,7 @@ def search_students():
         print(str(item[0]).ljust(4), str(item[1]).ljust(4), str(item[2]).ljust(4))
         print("-"*40)
 
-def search_subjects():
+def search_subjects(subjects):
     print(search_subjects_menu)
     
     name = str(input("Ingrese el nombre de la materia: "))
