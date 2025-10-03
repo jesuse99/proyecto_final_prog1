@@ -1,4 +1,4 @@
-from functions.validations import validate_string_input,validate_int_input, validate_option, existing_student
+from functions.validations import validate_string_input,validate_int_input, validate_student, validate_continue
 
 main_menu = """
 === SISTEMA DE CALIFICACIONES UADE ===
@@ -29,60 +29,26 @@ search_subjects_menu = """
 === BUSCAR MATERIA ===
 """
 
-# Creamos la funcion principal del programa
-def menu():
-    # Menu principal del programa. Muestra las opciones y ejecuta las funciones correspondientes.
-    option = validate_option()
-    while not option == 8:
-        match option:
-            case 1:
-                add_student()
-                continue
-            case 2:
-                add_subject()
-                continue            
-            case 3:
-                print("Ingresar notas")
-                continue            
-            case 4:
-                print("Mostrar promedio por materia")
-                continue            
-            case 5:
-                print("Motrar promedio por estudiante")
-                continue            
-            case 6:
-                search_students()
-                continue            
-            case 7:
-                search_subjects()
-                continue            
-            case 8:
-                finish_program()
-                continue            
-        option = validate_option()
-
 def add_students(students):
     # Funcion para agregar estudiantes a la lista de estudiantes
     print(student_menu)
-    option = ''
+    option = 's'
     while option != 'n':
         add_student(students)
-        option = str(input("Desea ingresar otro estudiante? (s/n): ")).lower()
-        while option not in ('s', 'n'): # validamos que la opcion ingresada sea 's' o 'n'
-            print("Opción inválida. Debe ser 's' o 'n'.")
-            option = str(input("Desea ingresar otro estudiante? (s/n): ")).lower()
-        
+        option = validate_continue("Desea ingresar otro estudiante? (s/n): \n")
+
+
 def add_student(students):
     # Funcion para agregar un estudiante a la lista de estudiantes
-    identifier = validate_int_input("Ingrese el legajo del estudiante: ", "Se ha ingresado un legajo inválido. El legajo no puede ser 0 y solo se permiten valores numéricos, intente nuevamente.")
-    while existing_student(students, identifier):
+    identifier = validate_int_input("\nIngrese el legajo del estudiante: ", "Se ha ingresado un legajo inválido. El legajo no puede ser 0 y solo se permiten valores numéricos, intente nuevamente.")
+    while validate_student(students, identifier):
         # validamos que el legajo no se encuentre registrado en el sistema
         # si el legajo es valido, se sale del while y se pide que se ingrese el nombre y la carrera
-        identifier = validate_int_input("Ingrese el legajo del estudiante: ", "Se ha ingresado un legajo inválido. El legajo no puede ser 0 y solo se permiten valores numéricos, intente nuevamente.")
+        identifier = validate_int_input("\nIngrese el legajo del estudiante: ", "Se ha ingresado un legajo inválido. El legajo no puede ser 0 y solo se permiten valores numéricos, intente nuevamente.")
     name = validate_string_input("Ingrese el nombre del estudiante: ", "Se ha ingresado un nombre inválido. El nombre solo debe contener letras y no puede estar vacío, intente nuevamente.")
     degree = validate_string_input("Ingrese la carrera del estudiante: ", "Se ha ingresado una carrera inválida. La carrera solo debe contener letras y no puede estar vacía, intente nuevamente.")
     students.append([ identifier, name, degree ]) # agregamos el estudiante a la lista
-    print("Estudiante agregado correctamente.")
+    print("\nEstudiante agregado correctamente.\n")
 
 
 def add_subject(subjects):
@@ -127,4 +93,3 @@ def search_subjects(subjects):
 def finish_program():
     print("Cerrando programa..")
     print("Programa finalizado")
-    input("Presione cualquier tecla para finalizar")
