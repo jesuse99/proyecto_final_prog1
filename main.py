@@ -1,4 +1,4 @@
-from functions.menu import main_menu, add_students, add_professors, add_subject, finish_program, edit_by_criteria
+from functions.menu import main_menu, add_data_menu, finish_program, edit_by_criteria
 from functions.validations import validate_menu_option   
 
 # Declaramos e inicializamos todas las variables 
@@ -46,19 +46,15 @@ def menu():
     # Menu principal del programa. Muestra las opciones y ejecuta las funciones correspondientes.
     print(main_menu)
     option = validate_menu_option()
-    while not option == 7:   
+    while not option == 5:   
         match option:
             case 1:
-                add_students(students)
+                add_data_menu(students, professors, subjects)               
             case 2:
-                add_professors(professors)
+                print("Gestionar notas y promedios")    
             case 3:
-                add_subject(subjects)                
-            case 4:
-                print("Gestionar promedios")    
-            case 5:
                 print("Buscar por criterio:")  
-            case 6:
+            case 4:
                 edit_by_criteria(students, professors)
 
         print("\nVolviendo al menú principal...\n")  

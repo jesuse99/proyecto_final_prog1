@@ -3,14 +3,19 @@ from functions.validations import validate_string_input,validate_int_input, vali
 main_menu = """
 === SISTEMA DE CALIFICACIONES UADE ===
 
+1. Ingresar datos
+2. Gestionar notas y promedios
+3. Buscar por criterio
+4. Editar por criterio
+5. Salir
+"""
+
+menu_add = """
+=== INGRESAR DATOS === 
 1. Agregar estudiantes
 2. Agregar profesores
 3. Agregar materias
-3. Gestionar notas
-4. Gestionar promedios
-5. Buscar por criterio
-6. Editar por criterio
-7. Salir
+4. Salir
 """
 
 menu_edit = """
@@ -136,6 +141,29 @@ def add_subject(subjects):
     
     subjects.append([ identifier, name, degree ])
     print("Materia agregada correctamente")
+
+
+
+""" --------------------------------------------------------------------------------------------"""
+""" ############################### MENÚ CON OPCIONES DE AÑADIR ############################### """
+""" --------------------------------------------------------------------------------------------"""
+
+def add_data_menu(students, professors, subjects):
+    # funcion para mostrar el menu de ingreso de datos y llamar a las funciones correspondientes segun sea estudiante, profesor o materia
+    print(menu_add)
+    option = validate_menu_option()
+    while not option == 4:   
+        match option:
+            case 1:
+                add_students(students)
+            case 2:
+                add_professors(professors)
+            case 3:
+                add_subject(subjects)                
+
+        print("\nVolviendo al menú de ingreso de datos...\n")  
+        print(menu_add) 
+        option = validate_menu_option()
 
 
 
