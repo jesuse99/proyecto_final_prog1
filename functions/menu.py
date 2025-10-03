@@ -1,3 +1,5 @@
+from functions.validations import validate_string_input,validate_int_input, validate_option, existing_student
+
 # Declaramos e inicializamos todas las variables 
 students = []
 subjects = []
@@ -32,17 +34,9 @@ search_subjects_menu = """
 === BUSCAR MATERIA ===
 """
 
-def validate_option():
-    print(main_menu)
-    option = int(input("Seleccione una opcion: "))
-    while option < 1 or option > 8:
-        print("Opcion incorrecta, intente nuevamente")
-        print(main_menu)
-        option = int(input("Seleccione una opcion: "))
-    return option
-
 # Creamos la funcion principal del programa
 def menu():
+    # Menu principal del programa. Muestra las opciones y ejecuta las funciones correspondientes.
     option = validate_option()
     while not option == 8:
         match option:
@@ -72,20 +66,33 @@ def menu():
                 continue            
         option = validate_option()
 
-# Creamos las funciones requeridas del programa
-def add_student():
+def add_students(students):
+    # Funcion para agregar estudiantes a la lista de estudiantes
     print(student_menu)
-    
-    identifier = int(input("ingrese el legajo del estudiante: "))
-    name = str(input("ingrese el nombre del estudiante: "))
-    degree = str(input("ingrese la carrera del estudiante: "))
-    
-    students.append([ identifier, name, degree ])
-    print("Estudiante agregado correctamente")
+    option = ''
+    while option != 'n':
+        add_student(students)
+        option = str(input("Desea ingresar otro estudiante? (s/n): ")).lower()
+        while option not in ('s', 'n'): # validamos que la opcion ingresada sea 's' o 'n'
+            print("Opción inválida. Debe ser 's' o 'n'.")
+            option = str(input("Desea ingresar otro estudiante? (s/n): ")).lower()
+        
+def add_student(students):
+    # Funcion para agregar un estudiante a la lista de estudiantes
+    identifier = validate_int_input("Ingrese el legajo del estudiante: ", "Se ha ingresado un legajo inválido. El legajo no puede ser 0 y solo se permiten valores numéricos, intente nuevamente.")
+    while existing_student(students, identifier):
+        # validamos que el legajo no se encuentre registrado en el sistema
+        # si el legajo es valido, se sale del while y se pide que se ingrese el nombre y la carrera
+        identifier = validate_int_input("Ingrese el legajo del estudiante: ", "Se ha ingresado un legajo inválido. El legajo no puede ser 0 y solo se permiten valores numéricos, intente nuevamente.")
+    name = validate_string_input("Ingrese el nombre del estudiante: ", "Se ha ingresado un nombre inválido. El nombre solo debe contener letras y no puede estar vacío, intente nuevamente.")
+    degree = validate_string_input("Ingrese la carrera del estudiante: ", "Se ha ingresado una carrera inválida. La carrera solo debe contener letras y no puede estar vacía, intente nuevamente.")
+    students.append([ identifier, name, degree ]) # agregamos el estudiante a la lista
+    print("Estudiante agregado correctamente.")
+
 
 def add_subject():
     print(subject_menu)
-    
+
     identifier = int(input("ingrese el numero de materia: "))
     name = str(input("ingrese el nombre de la materia: "))
     degree = str(input("ingrese la carrera de la materia: "))
