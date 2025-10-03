@@ -1,5 +1,5 @@
 def validate_option():
-    # Funcion para validar la opcion ingresada por el usuario. Debe ser un numero entre 1 y 8.
+    # Funcion para validar la opcion ingresada por el usuario en el menú. Debe ser un numero entre 1 y 8.
     option = input("Seleccione una opcion: ")
     while not option.isdigit() or option < 1 or option > 8:
         print("Opcion incorrecta, intente nuevamente")
