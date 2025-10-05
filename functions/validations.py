@@ -1,7 +1,7 @@
 def validate_menu_option():
     # Funcion para validar la opcion ingresada por el usuario en el menú. Debe ser un numero entre 1 y 5.
     option = input("Seleccione una opción: ")
-    while not option.isdigit() or int(option) < 1 or int(option) > 5:
+    while not option.isdigit() or int(option) < 1 or int(option) > 6:
         print("Se ha ingresado una opción inválida. La opción no puede estar vacía o ser 0. Solo se permiten valores numéricos, intente nuevamente.")
         option = input("Seleccione una opción: ")
     return int(option)
@@ -23,7 +23,7 @@ def validate_string_input(message, error):
     return string_value
 
 def validate_identifier(data_list, identifier):
-    # Funcion para validar que el legajo no se encuentre registrado en la lista de estudiantes y profesores
+    # Funcion para validar que el id no se encuentre registrado en la lista de estudiantes o materias
     for data in data_list:
         if data[0] == identifier:
             return True
@@ -36,3 +36,10 @@ def validate_continue(message):
         print("\nOpción inválida. Debe ser 's' (sí) o 'n' (no).\n")
         option = str(input(message)).lower()
     return option
+
+def validate_existing_note(notes, subject_identifier):
+    # Funcion para validar que exista al menos una nota registrada para la materia indicada
+    for data in notes:
+        if data[1] == subject_identifier:
+            return True
+    return False

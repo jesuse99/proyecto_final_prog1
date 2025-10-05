@@ -1,36 +1,27 @@
-from functions.menu import main_menu, add_data_menu, finish_program, edit_by_criteria
+from functions.menu import main_menu, add_data_menu, finish_program, edit_by_criteria, show_data_menu, search_by_criteria_menu, get_average_menu
 from functions.validations import validate_menu_option   
 
 # Declaramos e inicializamos todas las variables 
 
-#students = []
-#professors = []
-#degrees = []
-#subjects = []  
+# students = []
+# subjects = []  
+# notes = []
 
 students = [
-    [1, "Sofía", "Ingeniería en Sistemas"],
-    [2, "Marcos", "Medicina"],
-    [3, "Lucía", "Ingeniería"],
-    [4, "Tomás", "Arquitectura"],
-    [5, "Ana", "Derecho"]
-]
-
-professors = [
-    [1, "Carlos Gómez", "Ingeniería", "Programación I"],
-    [2, "Laura Fernández", "Derecho", "Introducción al Derecho"],
-    [3, "Martín López", "Medicina", "Anatomía"],
-    [4, "Ana Martínez", "Arquitectura", "Historia del Arte"],
-    [5, "Sofía Ramírez", "Sistemas", "Bases de Datos"]
+    [1, "Sofía", "Ingeniería en Sistemas"], # id=1, nombre=Sofía, carrera=Ingeniería en Sistemas
+    [2, "Marcos", "Medicina"],  # id=2, nombre=Marcos, carrera=Medicina
+    [3, "Lucía", "Ingeniería"],  # id=3, nombre=Lucía, carrera=Ingeniería
+    [4, "Tomás", "Arquitectura"], # id=4, nombre=Tomás, carrera=Arquitectura
+    [5, "Ana", "Derecho"]        # id=5, nombre=Ana, carrera=Derecho
 ]
 
 subjects = [
-    [1, "Programación I", "Ingeniería en Sistemas"],
-    [2, "Bases de Datos", "Ingeniería en Sistemas"],
-    [3, "Anatomía", "Medicina"],
-    [4, "Derecho Penal", "Derecho"],
-    [5, "Macroeconomía", "Ciencias Económicas"],
-    [6, "Psicología Cognitiva", "Psicología"]
+    [1, "Programación I", "Ingeniería en Sistemas"], # id=1, nombre=Programación I, carrera=Ingeniería en Sistemas
+    [2, "Bases de Datos", "Ingeniería en Sistemas"], # id =2, nombre=Bases de Datos, carrera=Ingeniería en Sistemas
+    [3, "Anatomía", "Medicina"], # id=3, nombre=Anatomía, carrera=Medicina
+    [4, "Derecho Penal", "Derecho"], # id=4, nombre=Derecho Penal, carrera=Derecho
+    [5, "Macroeconomía", "Ciencias Económicas"], # id=5, nombre=Macroeconomía, carrera=Ciencias Económicas
+    [6, "Psicología Cognitiva", "Psicología"] # id=6, nombre=Psicología Cognitiva, carrera=Psicología
 ]
 
 notes = [
@@ -46,17 +37,18 @@ def menu():
     # Menu principal del programa. Muestra las opciones y ejecuta las funciones correspondientes.
     print(main_menu)
     option = validate_menu_option()
-    while not option == 5:   
+    while not option == 6:   
         match option:
             case 1:
-                add_data_menu(students, professors, subjects)               
+                add_data_menu(students, subjects)
             case 2:
-                print("Gestionar notas y promedios")    
+                edit_by_criteria(students,notes)               
             case 3:
-                print("Buscar por criterio:")  
+                get_average_menu(notes, subjects) 
             case 4:
-                edit_by_criteria(students, professors)
-
+                search_by_criteria_menu(students, notes, subjects)
+            case 5: 
+                show_data_menu(students, subjects, notes)
         print("\nVolviendo al menú principal...\n")  
         print(main_menu) 
         option = validate_menu_option()
