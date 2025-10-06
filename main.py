@@ -1,129 +1,64 @@
-# Declaramos e inicializamos todas las variables 
-students = []
-subjects = []
-notes = []
+from functions.menu import main_menu, add_data_menu, finish_program, edit_by_criteria, show_data_menu, search_by_criteria_menu, get_average_menu
+from functions.validations import validate_menu_option   
 
-main_menu = """
-=== SISTEMA DE CALIFICACIONES UADE ===
+# careers = []
+careers = [
+    [1, "1010", "Ingeniería en Sistemas", "Facultad de Ingeniería"],          # id=1, codigo=1010, nombre=Ingeniería en Sistemas, facultad=Ingeniería
+    [2, "2020", "Medicina", "Facultad de Ciencias Médicas"],                  # id=2, codigo=2020, nombre=Medicina, facultad=Ciencias Médicas
+    [3, "3030", "Derecho", "Facultad de Ciencias Jurídicas"],                 # id=3, codigo=3030, nombre=Derecho, facultad=Ciencias Jurídicas
+    [4, "4040", "Ciencias Económicas", "Facultad de Ciencias Económicas"],    # id=4, codigo=4040, nombre=Ciencias Económicas, facultad=Ciencias Económicas
+    [5, "5050", "Psicología", "Facultad de Humanidades"],                     # id=5, codigo=5050, nombre=Psicología, facultad=Humanidades
+    [6, "6060", "Arquitectura", "Facultad de Arquitectura"]                   # id=6, codigo=6060, nombre=Arquitectura, facultad=Arquitectura
+]
 
-1. Agregar estudiantes
-2. Agregar materias
-3. Ingresar notas
-4. Mostrar promedio por materia
-5. Mostrar promedio por estudiante
-6. Buscar estudiante
-7. Buscar materias
-8. Salir
-"""
+# students = []
+students = [
+    [1, "1111", "Sofía Fernandez", "1010"],   # id=1, legajo=1111, nombre=Sofía Fernandez, carrera_codigo=1010 (Ingenieria en Sistemas)
+    [2, "2222", "Marcos Garcia", "2020"],     # id=2, legajo=2222, nombre=Marcos Garcia, carrera_codigo=2020 (Medicina)
+    [3, "3333", "Lucía Lopez", "6060"],       # id=3, legajo=3333, nombre=Lucía Lopez, carrera_codigo=4040 (Arquitectura)
+    [4, "4444", "Ana Diaz", "3030"]        # id=5, legajo=5555, nombre=Ana Diaz, carrera_codigo = 3030 (Derecho)
+]
 
-student_menu = """
-=== AGREGAR ESTUDIANTE ===
-"""
+# subjects = []  
+subjects = [
+    [1, "1532", "Programación I", "1010"],     # id=1, codigo=1532, nombre=Programación I, carrera_codigo=1010
+    [2, "2897", "Bases de Datos", "1010"],     # id=2, codigo=2897, nombre=Bases de Datos, carrera_codigo=1010
+    [3, "4120", "Anatomía", "2020"],           # id=3, codigo=4120, nombre=Anatomía, carrera_codigo=2020
+    [4, "5784", "Derecho Penal", "3030"],      # id=4, codigo=5784, nombre=Derecho Penal, carrera_codigo=3030
+    [5, "6962", "Macroeconomía", "4040"],      # id=5, codigo=6962, nombre=Macroeconomía, carrera_codigo=4040
+    [6, "8459", "Psicología Cognitiva", "5050"] # id=6, codigo=8459, nombre=Psicología Cognitiva, carrera_codigo=5050
+]
 
-subject_menu = """
-=== AGREGAR MATERIA ===
-"""
-
-search_students_menu = """
-=== BUSCAR ESTUDIANTE ===
-"""
-
-search_subjects_menu = """
-=== BUSCAR MATERIA ===
-"""
-
-# Creamos las funciones requeridas del programa
-def add_student():
-    print(student_menu)
-    
-    identifier = int(input("ingrese el legajo del estudiante: "))
-    name = str(input("ingrese el nombre del estudiante: "))
-    degree = str(input("ingrese la carrera del estudiante: "))
-    
-    students.append([ identifier, name, degree ])
-    print("Estudiante agregado correctamente")
-
-def add_subject():
-    print(subject_menu)
-    
-    identifier = int(input("ingrese el numero de materia: "))
-    name = str(input("ingrese el nombre de la materia: "))
-    degree = str(input("ingrese la carrera de la materia: "))
-    
-    subjects.append([ identifier, name, degree ])
-    print("Materia agregada correctamente")
-
-def search_for_name(value, list_search):
-    result_search = []
-    for item in list_search:
-        if str(item[1]).upper() == str(value).upper():
-            result_search.append(item)
-    return result_search
-
-def search_students():
-    print(search_students_menu)
-    
-    name = str(input("Ingrese el nombre del estudiante: "))
-    
-    search = search_for_name(name, students)
-    print("Resultado de la busqueda:")
-    for item in search:
-        print(str(item[0]).ljust(4), str(item[1]).ljust(4), str(item[2]).ljust(4))
-        print("-"*40)
-
-def search_subjects():
-    print(search_subjects_menu)
-    
-    name = str(input("Ingrese el nombre de la materia: "))
-    
-    search = search_for_name(name, subjects)
-    print("Resultado de la busqueda:")
-    for item in search:
-        print(str(item[0]).ljust(4), str(item[1]).ljust(4), str(item[2]).ljust(4))
-        print("-"*40)
-
-def finish_program():
-    print("Cerrando programa..")
-    print("Programa finalizado")
-    input("Presione cualquier tecla para finalizar")
+# notes = []
+notes = [
+    [1, "1532", "1111", 90],   # id=1, materia=1532 (Programación I), estudiante=1111 (Sofía Fernandez), nota=90
+    [2, "2897", "1111", 80],   # id=2, materia=2897 (Bases de Datos), estudiante=1111 (Sofía Fernandez), nota=80
+    [3, "4120", "2222", 70],   # id=3, materia=4120 (Anatomía), estudiante=2222 (Marcos Garcia), nota=70
+    [4, "5784", "4444", 60],   # id=4, materia=5784 (Derecho Penal), estudiante=4444 (Ana Diaz), nota=60
+]
 
 
-# Creamos la funcion principal del programa
-def program():
-    option = 0
-    while not option == 8:
-        print(main_menu)
-        option = int(input("Seleccione una opcion: "))
-
+def menu():
+    # Menu principal del programa. Muestra las opciones y ejecuta las funciones correspondientes.
+    print(main_menu)
+    option = validate_menu_option()
+    while not option == 6:   
         match option:
             case 1:
-                add_student()
-                continue
+                add_data_menu(students, subjects, notes, careers)
             case 2:
-                add_subject()
-                continue            
+                edit_by_criteria(students,notes, subjects)               
             case 3:
-                print("Ingresar notas")
-                continue            
+                get_average_menu(notes, subjects) 
             case 4:
-                print("Mostrar promedio por materia")
-                continue            
-            case 5:
-                print("Motrar promedio por estudiante")
-                continue            
-            case 6:
-                search_students()
-                continue            
-            case 7:
-                search_subjects()
-                continue            
-            case 8:
-                finish_program()
-                continue            
-            case _:
-                print("Opcion incorrecta")
-                continue
+                search_by_criteria_menu(students, notes, subjects, careers)
+            case 5: 
+                show_data_menu(students, subjects, notes, careers)
+        print("\nVolviendo al menú principal...\n")  
+        print(main_menu) 
+        option = validate_menu_option()
+    finish_program()
 
 # Ejecutamos el programa
 if __name__ == '__main__':
-    program()
+    menu()
