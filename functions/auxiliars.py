@@ -30,7 +30,7 @@ def set_identifier(data_list):
 def get_by_record(data_list, identifier):
     # funcion para obtener un estudiante por su legajo
     for data in data_list:
-        if data[1] == identifier:
+        if data[1] == str(identifier):
             return data
     return None
 
@@ -42,10 +42,18 @@ def get_notes_by_student_record(notes, identifier):
     # funcion para obtener las notas de un estudiante por su legajo
     student_notes = []
     for note in notes:
-        if note[2] == identifier:
+        if note[2] == str(identifier):
             student_notes.append(note)
     return student_notes
 
+
+def get_students_by_career(students, identifier):
+    # funcion para obtener las notas de un estudiante por su legajo
+    students_career = []
+    for student in students:
+        if student[3] == str(identifier):
+            students_career.append(student)
+    return students_career
 """ ---------------------------------------------------------------------------------------------------------"""
 """ ############################### OBTENER NOTAS POR LEGAJO Y ID DE MATERIA ############################### """
 """ ---------------------------------------------------------------------------------------------------------"""
@@ -54,7 +62,7 @@ def get_notes_by_subject_student(notes, subject_id, student_id):
     # funcion para obtener las notas de una materia por su ID
     subject_notes = []
     for note in notes:
-        if note[1] == subject_id and note[2] == student_id:
+        if note[1] == str(subject_id) and note[2] == str(student_id):
             subject_notes.append(note)
     return subject_notes
 

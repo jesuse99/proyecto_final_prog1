@@ -1,4 +1,4 @@
-
+import re
 
 """ --------------------------------------------------------------------------------------------------------"""
 """ ############################### VALIDAR OPCIÓN INGRESADA PARA LOS MENÚS ############################### """
@@ -29,11 +29,12 @@ def validate_int_input(message, error):
 """ ############################### VALIDAR QUE EL VALOR INGRESADO SEA UN STRING ############################### """
 """ -------------------------------------------------------------------------------------------------------------"""
 def validate_string_input(message, error):
-    # Funcion para validar que el input sea un string no vacio y que solo contenga letras
-    string_value = str(input(message))
-    while string_value == "" or not string_value.isalpha():
+    # función para validar que el input sean caracteres excepto dígitos y que no sea vacío
+    string_value = input(message).strip()
+    # Expresión regular: rechaza si hay números (0-9)
+    while string_value == "" or re.search(r"\d", string_value):
         print(error)
-        string_value = str(input(message))
+        string_value = input(message).strip()
     return string_value
 
 """ ------------------------------------------------------------------------------------------------------------------------------"""
@@ -60,14 +61,26 @@ def validate_continue(message):
     return option
 
 
-""" ---------------------------------------------------------------------------------------------------------------------"""
-""" ############################### VALIDAR EXISTENCIA DE NOTA PARA UN ALUMNO POR LEGAJO ############################### """
-""" ---------------------------------------------------------------------------------------------------------------------"""
+""" --------------------------------------------------------------------------------------------------------------"""
+""" ############################### VALIDAR EXISTENCIA POR LEGAJO O IDENTIFICADOR ############################### """
+""" --------------------------------------------------------------------------------------------------------------"""
 
-
-def validate_existing_note(notes, student_identifier):
+def validate_existing(data_list, code_value):
     # Funcion para validar que exista al menos una nota registrada para el alumno indicado
-    for note in notes:
-        if note[2] == student_identifier:
+    for data in data_list:
+        if data[2] == str(code_value):
             return True
     return False
+
+
+""" ----------------------------------------------------------------------------------------------"""
+""" ############################### VALIDAR EXISTENCIA DE CARRERA ############################### """
+""" ----------------------------------------------------------------------------------------------"""
+
+def validate_existing_career(careers, career_name, career_org):
+    # función para verificar que una carrera está registrada en careers
+    for career in careers:
+        if career[2] == career_name and career[3] == career_org:
+            return True
+    return False
+        

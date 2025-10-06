@@ -1,6 +1,6 @@
 import random
-from functions.validations import validate_string_input,validate_int_input, validate_identifier, validate_continue, validate_menu_option, validate_existing_note
-from functions.auxiliars import set_position, set_identifier, get_by_record, get_notes_by_student_record, get_notes_by_subject_student, get_average
+from functions.validations import validate_string_input,validate_int_input, validate_identifier, validate_continue, validate_menu_option, validate_existing, validate_existing_career
+from functions.auxiliars import set_position, set_identifier, get_by_record, get_notes_by_student_record, get_notes_by_subject_student, get_average, get_students_by_career
 
 
 main_menu = """
@@ -24,34 +24,42 @@ menu_add = """
 1. Agregar estudiantes
 2. Agregar materias
 3. Agregar notas
-4. Volver
+4. Agregar carreras
+5. Volver
 """
 
 student_menu = """
-=== AGREGAR ESTUDIANTE ===
+=== AGREGAR ESTUDIANTES ===
 """
 
 subject_menu = """
-=== AGREGAR MATERIA ===
+=== AGREGAR MATERIAS ===
 """
 
 note_menu = """
-=== AGREGAR MATERIA ===
+=== AGREGAR NOTAS ===
 """
 
+career_menu = """
+=== AGREGAR CARRERAS ===
+"""
 
 """ -----------------------------------------------------------------------------------"""
 """ ############################### AÑADIR ESTUDIANTES ############################### """
 """ -----------------------------------------------------------------------------------"""
 
-def add_student(students):
+def add_student(students, careers):
     # Funcion para agregar un estudiante a la lista de estudiantes
     identifier = set_identifier(students)
     pos =  set_position(students)
     name = validate_string_input("- Ingrese el nombre del estudiante: ", "ERROR [!] Se ha ingresado un nombre inválido. El nombre solo debe contener letras y no puede estar vacío, intente nuevamente.")
-    degree = validate_string_input("- Ingrese la carrera del estudiante: ", "ERROR [!] Se ha ingresado una carrera inválida. La carrera solo debe contener letras y no puede estar vacía, intente nuevamente.")
-    students.append([ pos, identifier, name, degree ]) # agregamos el estudiante a la lista
-    print("\n [+] Estudiante agregado correctamente.\n")
+    degree = validate_int_input("- Ingrese el código de carrera del estudiante:", "ERROR [!] Se ha ingresado un codigo inválido. El código solo puede contener números y no puede estar vacío, intente nuevamente.")
+    if validate_identifier(careers, degree): 
+        degree = validate_string_input("- Ingrese la carrera del estudiante: ", "ERROR [!] Se ha ingresado una carrera inválida. La carrera solo debe contener letras y no puede estar vacía, intente nuevamente.")
+        students.append([ pos, identifier, name, degree ]) # agregamos el estudiante a la lista
+        print("\n [+] Estudiante agregado correctamente.\n")
+    else:
+        print("ERROR [!] No se puede añadir un estudiante para una carrera que no existe.")
 
 def add_students(students):
     # Funcion para agregar MULTIPLES estudiantes a la lista de estudiantes
@@ -65,15 +73,18 @@ def add_students(students):
 """ ############################### AÑADIR MATERIAS ############################### """
 """ --------------------------------------------------------------------------------"""
 
-def add_subject(subjects):
+def add_subject(subjects, careers):
     # función para agregar una materia a la lista subjects
     print(subject_menu)
     subject_code = set_identifier(subjects)
     pos = set_position(subjects)   
     subject_name = validate_string_input("- Ingrese el nombre de la materia: ", "ERROR [!]Se ha ingresado un nombre inválido. El nombre solo debe contener letras y no puede estar vacío, intente nuevamente.")
-    subject_degree = validate_string_input("- Ingrese la carrera de la materia: ", "ERROR [!]Se ha ingresado una carrera inválida. La carrera solo debe contener letras y no puede estar vacía, intente nuevamente.")
-    subjects.append([ pos, subject_code, subject_name, subject_degree ]) # agregamos la materia a la lista
-    print("\n [+] Materia agregada correctamente.\n")
+    subject_degree = validate_int_input("- Ingrese el código de carrera de la materia:", "ERROR [!] Se ha ingresado un codigo inválido. El código solo puede contener números y no puede estar vacío, intente nuevamente.")
+    if validate_identifier(careers, subject_degree):
+        subjects.append([ pos, subject_code, subject_name, subject_degree ]) # agregamos la materia a la lista
+        print("\n [+] Materia agregada correctamente.\n")
+    else:
+        print("ERROR [!] No se puede añadir una materia para una carrera que no existe.")
 
 def add_subjects(subjects):
     # funcion para agregar MULTIPLES materias a la lista subjects
@@ -115,22 +126,50 @@ def add_notes(notes, students, subjects):
     
 
 
+""" --------------------------------------------------------------------------------"""
+""" ############################### AÑADIR CARRERAS ############################### """
+""" --------------------------------------------------------------------------------"""
+
+def add_career(careers):
+    # Función para añadir UNA carrera a la lista careers
+    pos = set_position(careers)
+    career_code = set_identifier(careers)
+    career_name = validate_string_input("- Ingrese el nombre de la carrera: ", "ERROR [!]Se ha ingresado un nombre inválido. El nombre solo debe contener letras y no puede estar vacío, intente nuevamente.")
+    career_org = validate_string_input("- Ingrese el nombre de la facultad: ", "ERROR [!]Se ha ingresado un nombre inválido. El nombre solo debe contener letras y no puede estar vacío, intente nuevamente.")
+    if not validate_existing_career(careers,career_name, career_org):
+        careers.append([pos, career_code, career_name, career_org])
+        print("\n [+] Carrera agregada correctamente.\n")
+    else:
+        print("ATENCIÓN [!] No se puede añadir carrera que ya existe.")
+
+def add_careers(careers):
+    # funcion para añadir MULTIPLES carreras a la lista careers
+    print(career_menu)
+    option = 's'
+    while option != 'n':
+        add_career(careers)
+        option = validate_continue("\nDesea ingresar otra carrera? (s/n): \n")
+
+
+
 """ --------------------------------------------------------------------------------------------"""
 """ ############################### MENÚ CON OPCIONES DE AÑADIR ############################### """
 """ --------------------------------------------------------------------------------------------"""
 
-def add_data_menu(students, subjects, notes):
+def add_data_menu(students, subjects, notes, careers):
     # funcion para mostrar el menu de ingreso de datos y llamar a las funciones correspondientes segun sea estudiante o materia
     print(menu_add)
     option = validate_menu_option()
-    while not option == 4:   
+    while not option == 5:   
         match option:
             case 1:
                 add_students(students)
             case 2:
                 add_subjects(subjects)   
             case 3: 
-                add_notes(notes, students, subjects)           
+                add_notes(notes, students, subjects)    
+            case 4:
+                add_careers(careers)       
 
         print("\nVolviendo al menú de ingreso de datos...\n")  
         print(menu_add) 
@@ -258,7 +297,7 @@ def edit_notes(notes, subjects):
     # funcion para editar las notas de un estudiante de la lista de notas si existe
     # pendiente añadir que se ingrese la fecha en que se rindio la materia 
     identifier = validate_int_input("\n- Ingrese el legajo del estudiante cuyas notas desea editar: ", "ERROR [!] Se ha ingresado un legajo inválido. El legajo no puede ser 0 y solo se permiten valores numéricos, intente nuevamente.")
-    if validate_existing_note(notes, identifier):
+    if validate_existing(notes, identifier):
         subject_identifier = validate_int_input("- Ingrese el código de la materia cuya nota desea editar: ", "ERROR [!] Se ha ingresado un ID inválido. El ID no puede ser 0 y solo se permiten valores numéricos, intente nuevamente.")
         if validate_identifier(subjects, subject_identifier):
             # si el ID de la materia existe, se procede a buscar la nota correspondiente al estudiante y a la materia
@@ -311,9 +350,9 @@ def student_average_notes(notes, subjects):
     # funcion para calcular el promedio de notas de un estudiante
     print(menu_average_title)
     identifier = validate_int_input("\n- Ingrese el legajo del estudiante para calcular su promedio de notas: ", "ERROR [!] Se ha ingresado un legajo inválido. El legajo no puede ser 0 y solo se permiten valores numéricos, intente nuevamente.")
-    if validate_identifier(notes, identifier):
+    if validate_existing(notes, identifier):
         subject_identifier = validate_int_input("- Ingrese el código de la materia para calcular el promedio de notas: ", "ERROR [!] Se ha ingresado un ID inválido. El ID no puede ser 0 y solo se permiten valores numéricos, intente nuevamente.")
-        if validate_existing_note(notes, subject_identifier):
+        if validate_identifier(notes, subject_identifier):
             student_notes = get_notes_by_subject_student(notes, subject_identifier, identifier)
             subject_data = get_by_record(subjects, subject_identifier)
             if student_notes:
@@ -334,7 +373,7 @@ menu_search = """
     1. Buscar estudiante por legajo
     2. Buscar notas por legajo de estudiante
     3. Buscar estudiantes por carrera
-    3. Volver
+    4. Volver
 """
 
 search_students_menu = """
@@ -345,7 +384,7 @@ search_notes_menu = """
 === BUSCAR NOTAS ===
 """
 
-search_notes_menu = """
+search_career_menu = """
 === BUSCAR ESTUDIANTES POR CARRERA ===
 """
 
@@ -353,18 +392,18 @@ search_notes_menu = """
 """ ############################### MENÚ PARA BUSCAR POR CRITERIO ############################### """
 """ ----------------------------------------------------------------------------------------------"""
 
-def search_by_criteria_menu(students, notes, subjects):
+def search_by_criteria_menu(students, notes, subjects, careers):
     # funcion para mostrar el menu de busqueda por criterio y llamar a las funciones correspondientes segun sea estudiante o materia
     print(menu_search)
     option = validate_menu_option()
     while not option == 4:
         match option:
             case 1:
-                search_student_by_record(students)
+                search_student_by_record(students, careers)
             case 2:
                 search_notes_by_student_id(notes, students, subjects)
             case 3:
-                print("Buscar estudiantes por carrera")
+                search_students_by_career(careers, students)
         print("\nVolviendo al menú de búsqueda por criterio...\n")  
         print(menu_search)
         option = validate_menu_option()
@@ -373,7 +412,7 @@ def search_by_criteria_menu(students, notes, subjects):
 """ ############################### BUSCAR ESTUDIANTE POR LEGAJO ############################### """
 """ ---------------------------------------------------------------------------------------------"""
 
-def search_student_by_record(students):
+def search_student_by_record(students, careers):
     # funcion para buscar un estudiante por su legajo
     print(search_students_menu)
     identifier = validate_int_input("\n- Ingrese el legajo del estudiante que desea buscar: ", "ERROR [!] Se ha ingresado un legajo inválido. El legajo no puede ser 0 y solo se permiten valores numéricos, intente nuevamente.")
@@ -381,7 +420,15 @@ def search_student_by_record(students):
         print("\nResultado de la búsqueda:\n")
         student = get_by_record(students, identifier)
         if student:
-            print("Legajo:", student[1], " - Nombre:", student[2], "- Carrera:", student[3])
+            student_name = student[2]
+            student_career = student[3]
+            # Buscar carrera por su codigo
+            career_data = get_by_record(careers, student_career)
+
+            if career_data:
+                career_name = career_data[2]
+                career_building = career_data[3]
+                print("Legajo:",identifier, " - Nombre:", student_name, "- Carrera:", career_name, " - ", career_building)
     else:
         print("\nATENCIÓN [!] No se encontró un estudiante con el legajo ingresado.\n")
 
@@ -409,17 +456,29 @@ def search_notes_by_student_id(notes, students, subjects):
         print("\nATENCIÓN [!] No se encontró un estudiante con el legajo ingresado.\n")
 
 
-def search_student_by_record(students):
-    # funcion para buscar un estudiante por su legajo
-    print(search_students_menu)
-    identifier = validate_int_input("\n- Ingrese el legajo del estudiante que desea buscar: ", "ERROR [!] Se ha ingresado un legajo inválido. El legajo no puede ser 0 y solo se permiten valores numéricos, intente nuevamente.")
-    if validate_identifier(students, identifier):
+""" -----------------------------------------------------------------------------------------------"""
+""" ############################### BUSCAR ESTUDIANTES POR CARRERA ############################### """
+""" -----------------------------------------------------------------------------------------------"""
+
+def search_students_by_career(careers, students):
+    # funcion para buscar estudiantes por su codigo de carrera
+    print(search_career_menu)
+    career_code = validate_int_input("\n- Ingrese el codigo de carrera de los estudiantes que desea buscar: ", "ERROR [!] Se ha ingresado un codigo de carrera. El codigo de carrera no puede ser 0 y solo se permiten valores numéricos, intente nuevamente.")
+    if validate_identifier(careers, career_code):
         print("\nResultado de la búsqueda:\n")
-        student = get_by_record(students, identifier)
-        if student:
-            print("Legajo:", student[1], " - Nombre:", student[2], "- Carrera:", student[3])
+        students_data = get_students_by_career(students, career_code)
+        print(f"Estudiantes para la carrera codigo {career_code}")
+        for student in students_data:
+            student_name = student[2]
+            student_indentifier = student[1]
+            print("Nombre: ", student_name, " - Legajo: ", student_indentifier)
     else:
-        print("\nATENCIÓN [!] No se encontró un estudiante con el legajo ingresado.\n")
+        print("\nATENCIÓN [!] No se encontró una carrera con el código ingresado.\n")
+            
+
+
+
+
 
 
 
@@ -442,18 +501,18 @@ menu_show_data = """
 """ ############################### MENÚ MOSTRAR DATOS ############################### """
 """ -----------------------------------------------------------------------------------"""
 
-def show_data_menu(students, subjects, notes):
+def show_data_menu(students, subjects, notes, careers):
     # funcion para mostrar el menu de mostrar datos y llamar a las funciones correspondientes segun sea estudiantes o notas
     print(menu_show_data)
     option = validate_menu_option()
     while not option == 4:
         match option:
             case 1:
-                show_students(students)
+                show_students(students, careers)
             case 2:
                 show_notes(notes, subjects, students)
             case 3:
-                show_subjects(subjects)
+                show_subjects(subjects, careers)
         print("\nVolviendo al menú de edición de estudiantes...\n")  
         print(menu_show_data) 
         option = validate_menu_option()
@@ -463,12 +522,22 @@ def show_data_menu(students, subjects, notes):
 """ ############################### MOSTRAR ESTUDIANTES REGISTRADOS ############################### """
 """ ------------------------------------------------------------------------------------------------"""
 
-def show_students(students):
+def show_students(students, careers):
     # funcion para mostrar todos los estudiantes de la lista de estudiantes
     print("\n=== MOSTRAR ALUMNOS ===\n")
     for student in students:
-        print("Legajo:",student[1], " - Nombre:", student[2], "- Carrera:", student[3])
-    print()
+        student_identifier = student[1]
+        student_name = student[2]
+        student_grade = student[3]
+
+        # Buscar carrera por su codigo
+        career_data = get_by_record(careers, student_grade)
+
+        if career_data:
+            career_name = career_data[2]
+            career_building = career_data[3]
+            print("Legajo:",student_identifier, " - Nombre:", student_name, "- Carrera:", career_name, " - ", career_building)
+        
 
 
 """ ------------------------------------------------------------------------------------------"""
@@ -502,11 +571,21 @@ def show_notes(notes, subjects, students):
 """ ############################### MOSTRAR MATERIAS REGISTRADOS ############################### """
 """ ---------------------------------------------------------------------------------------------"""
 
-def show_subjects(subjects):
+def show_subjects(subjects, careers):
     # funcion para mostrar todos los estudiantes de la lista de estudiantes
     print("\n=== MOSTRAR MATERIAS ===\n")
     for subject in subjects:
-        print("Código de materia:",subject[1], " - Nombre:", subject[2], "- Carrera:", subject[3])
+        subject_code = subject[1]
+        subject_name = subject[2]
+        subject_career = subject[3]
+
+        # Buscar carrera por su codigo
+        career_data = get_by_record(careers, subject_career)
+
+        if career_data:
+            career_name = career_data[2]
+            career_building = career_data[3]
+            print("Código de materia:",subject_code, " - Nombre:", subject_name, "- Carrera:", career_name, " - ", career_building)
     print()
 
 """ ###################################################################### """
