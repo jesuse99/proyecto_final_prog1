@@ -48,13 +48,13 @@ career_menu = """
 """ ############################### AÑADIR ESTUDIANTES ############################### """
 """ -----------------------------------------------------------------------------------"""
 
-def add_student(students, careers):
+def add_student(students):
     # Funcion para agregar un estudiante a la lista de estudiantes
     identifier = set_identifier(students)
     pos =  set_position(students)
     name = validate_string_input("- Ingrese el nombre del estudiante: ", "ERROR [!] Se ha ingresado un nombre inválido. El nombre solo debe contener letras y no puede estar vacío, intente nuevamente.")
     degree = validate_int_input("- Ingrese el código de carrera del estudiante:", "ERROR [!] Se ha ingresado un codigo inválido. El código solo puede contener números y no puede estar vacío, intente nuevamente.")
-    if validate_identifier(careers, degree): 
+    if validate_identifier(students, identifier): 
         degree = validate_string_input("- Ingrese la carrera del estudiante: ", "ERROR [!] Se ha ingresado una carrera inválida. La carrera solo debe contener letras y no puede estar vacía, intente nuevamente.")
         students.append([ pos, identifier, name, degree ]) # agregamos el estudiante a la lista
         print("\n [+] Estudiante agregado correctamente.\n")
@@ -254,7 +254,7 @@ def edit_student(students):
         print(f"\nEditando estudiante con legajo: {identifier}")
         print(menu_edit_student)
         option = validate_menu_option()
-        while not option == 4:   
+        while not option == 3:   
             match option:
                 case 1:
                     edit_name(students, identifier)
