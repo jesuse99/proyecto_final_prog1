@@ -1,6 +1,6 @@
-import random
 from functions.validations import validate_string_input,validate_int_input, validate_identifier, validate_continue, validate_menu_option, validate_existing, validate_existing_career
 from functions.auxiliars import set_position, set_identifier, get_by_record, get_notes_by_student_record, get_notes_by_subject_student, get_average, get_students_by_career
+from utils.data import students, subjects, notes, careers
 
 
 main_menu = """
@@ -73,7 +73,7 @@ def add_students(students):
 """ ############################### AÑADIR MATERIAS ############################### """
 """ --------------------------------------------------------------------------------"""
 
-def add_subject(subjects, careers):
+def add_subject(subjects):
     # función para agregar una materia a la lista subjects
     print(subject_menu)
     subject_code = set_identifier(subjects)
@@ -156,7 +156,7 @@ def add_careers(careers):
 """ ############################### MENÚ CON OPCIONES DE AÑADIR ############################### """
 """ --------------------------------------------------------------------------------------------"""
 
-def add_data_menu(students, subjects, notes, careers):
+def add_data_menu():
     # funcion para mostrar el menu de ingreso de datos y llamar a las funciones correspondientes segun sea estudiante o materia
     print(menu_add)
     option = validate_menu_option()
@@ -202,7 +202,7 @@ menu_edit_student = """
 """ ############################### MENÚ CON OPCIONES DE EDICIÓN ############################### """
 """ ---------------------------------------------------------------------------------------------"""
 
-def edit_by_criteria(students, notes, subjects):
+def edit_by_criteria():
     # funcion para mostrar el menu de edicion y llamar a las funciones correspondientes segun sea estudiante o materia
     print(menu_edit)
     option = validate_menu_option()
@@ -330,7 +330,7 @@ menu_average_title = """
 """ ############################### MENÚ PARA GESTIONAR PROMEDIOS ############################### """
 """ ----------------------------------------------------------------------------------------------"""
 
-def get_average_menu(notes,subjects):
+def get_average_menu():
     # funcion para mostrar el menu de gestion de promedios y llamar a las funciones correspondientes
     print(menu_average)
     option = validate_menu_option()
@@ -392,7 +392,7 @@ search_career_menu = """
 """ ############################### MENÚ PARA BUSCAR POR CRITERIO ############################### """
 """ ----------------------------------------------------------------------------------------------"""
 
-def search_by_criteria_menu(students, notes, subjects, careers):
+def search_by_criteria_menu():
     # funcion para mostrar el menu de busqueda por criterio y llamar a las funciones correspondientes segun sea estudiante o materia
     print(menu_search)
     option = validate_menu_option()
@@ -501,7 +501,7 @@ menu_show_data = """
 """ ############################### MENÚ MOSTRAR DATOS ############################### """
 """ -----------------------------------------------------------------------------------"""
 
-def show_data_menu(students, subjects, notes, careers):
+def show_data_menu():
     # funcion para mostrar el menu de mostrar datos y llamar a las funciones correspondientes segun sea estudiantes o notas
     print(menu_show_data)
     option = validate_menu_option()
