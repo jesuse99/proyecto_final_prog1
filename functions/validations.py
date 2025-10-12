@@ -101,7 +101,19 @@ def validate_date_input(message, error):
             datetime.strptime(string_value, r'%Y-%m-%d')
             date_valid = True
         except ValueError: 
-            string_value = input(message).strip()
             print(error)
+            string_value = input(message).strip()
             date_valid = False
     return string_value
+
+""" ----------------------------------------------------------------------------------------------"""
+""" ############################### VALIDAR QUE EXISTA LA FECHA EN NOTA ######################### """
+""" ----------------------------------------------------------------------------------------------"""
+
+def validate_date(notes, note_date):
+    # función para verificar que una fecha está registrada en notas
+    for note in notes:
+        if note[4] == note_date:
+            return True
+    return False
+
