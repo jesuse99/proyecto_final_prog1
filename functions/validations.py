@@ -1,4 +1,6 @@
+from datetime import datetime
 import re
+
 
 """ --------------------------------------------------------------------------------------------------------"""
 """ ############################### VALIDAR OPCIÓN INGRESADA PARA LOS MENÚS ############################### """
@@ -83,4 +85,23 @@ def validate_existing_career(careers, career_name, career_org):
         if career[2] == career_name and career[3] == career_org:
             return True
     return False
-        
+
+
+""" ----------------------------------------------------------------------------------------------"""
+""" ############################### VALIDAR QUE EL VALOR INGRESADO SEA UNA FECHA ################ """
+""" ----------------------------------------------------------------------------------------------"""
+
+def validate_date_input(message, error):
+    # función para validar que el input sean caracteres excepto dígitos y que no sea vacío
+    string_value = input(message).strip()
+    date_valid = False
+    while not date_valid:
+        try:
+            # valida que la fecha es valida y tiene el formato correcto
+            datetime.strptime(string_value, r'%Y-%m-%d')
+            date_valid = True
+        except ValueError: 
+            string_value = input(message).strip()
+            print(error)
+            date_valid = False
+    return string_value

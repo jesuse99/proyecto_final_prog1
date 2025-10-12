@@ -1,4 +1,4 @@
-from functions.validations import validate_string_input,validate_int_input, validate_identifier, validate_continue, validate_menu_option, validate_existing, validate_existing_career
+from functions.validations import validate_string_input,validate_int_input, validate_identifier, validate_continue, validate_menu_option, validate_existing, validate_existing_career, validate_date_input
 from functions.auxiliars import set_position, set_identifier, get_by_record, get_notes_by_student_record, get_notes_by_subject_student, get_average, get_students_by_career
 from utils.data import students, subjects, notes, careers
 
@@ -108,7 +108,8 @@ def add_note(notes, students, subjects):
         student_identifier = validate_int_input("\n- Ingrese el legajo del estudiante: ", "ERROR [!] Se ha ingresado un legajo inválido. El legajo no puede ser 0 y solo se permiten valores numéricos, intente nuevamente.")
         if validate_identifier(students, student_identifier):
             note_value = get_note()
-            notes.append([pos, subject_code, student_identifier,note_value])
+            date_value = get_date()
+            notes.append([pos, subject_code, student_identifier,note_value,date_value])
             print("\nNota agregada correctamente.\n")
         else: 
             print("ATENCIÓN [!] No se puede añadir una nota para un estudiante que no existe.")
@@ -280,12 +281,16 @@ def get_note():
         new_note = validate_int_input("- Ingrese la nueva nota: ", "ERROR [!] Se ha ingresado una nota inválida. La nota debe ser un número entre 0 y 100, intente nuevamente.")
     return new_note
 
+def get_date():
+    new_date = validate_date_input("- Ingrese la fecha: ", "ERROR [!] Se ha ingresado una fecha inválida. La fecha debe tener el formato yyyy-MM-dd, intente nuevamente.")
+    return new_date
 
 def set_new_note(notes, student_identifier, subject_identifier):
     # funcion para editar una nota con una nueva nota ingresada por consola 
     for note in notes: 
         if note[2] == student_identifier and note[1] == subject_identifier:
             note[3] = get_note()
+            note[4] = get_date()
             print("\nNota editada correctamente.\n")
             return True
 
@@ -554,6 +559,9 @@ def show_notes(notes, subjects, students):
         # Obtener el valor de la nota
         note_value = note[3]
 
+        # Obtener la fecha de la nota
+        date_value = note[4]
+
         # Buscar materia por su codigo
         subject_data = get_by_record(subjects, subject_code)
 
@@ -564,7 +572,7 @@ def show_notes(notes, subjects, students):
         if subject_data and student_data:
             subject_name = subject_data[2]
             student_name = student_data[2]
-            print(f"Materia: {subject_name} - Estudiante: {student_name} - Nota: {note_value}")
+            print(f"Materia: {subject_name} - Estudiante: {student_name} - Nota: {note_value} - Fecha: {date_value}")
         
 
 """ ---------------------------------------------------------------------------------------------"""
