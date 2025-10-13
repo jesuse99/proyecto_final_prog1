@@ -86,7 +86,7 @@ def edit_degree(data_list, identifier):
     for resource in data_list:
         if int(resource[1]) == int(identifier):
             resource[3] = degree
-    set_data('students.csv', students)
+    set_data('students.csv', data_list)
     print("\nCarrera editada correctamente.\n")
 
 

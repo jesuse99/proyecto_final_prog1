@@ -2,10 +2,10 @@ from functions.validations import validate_menu_option
 from utils.data import students, subjects, notes, careers
 from utils.service import get_data, set_data
 
-from functions.menu_students import show_students, add_students, edit_student, search_students_by_career, search_student_by_record
-from functions.menu_subjects import show_subjects, add_subjects, student_average_notes
-from functions.menu_notes import show_notes, add_notes, edit_notes, set_new_note, search_notes_by_student_id
-from functions.menu_careers import show_careers, add_careers
+from functions.students import show_students, add_students, edit_student, search_students_by_career, search_student_by_record
+from functions.subjects import show_subjects, add_subjects, student_average_notes
+from functions.notes import show_notes, add_notes, edit_notes, set_new_note, search_notes_by_student_id
+from functions.careers import show_careers, add_careers
 
 
 students = get_data('students.csv')
