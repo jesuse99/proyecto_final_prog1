@@ -46,7 +46,7 @@ Desarrollar un sistema en consola que permita gestionar estudiantes y sus califi
 
 
 ##  Estructura del proyecto
-proyecto_final_prog1/
+```proyecto_final_prog1/
 ├── main.py
 ├── functions/
 │   ├── menu.py
@@ -55,7 +55,7 @@ proyecto_final_prog1/
 ├── README.md
 ├── LICENSE
 └── .gitignore
-
+```
 
 
 ### Descripción de módulos
