@@ -71,7 +71,7 @@ def edit_name(data_list, identifier):
     # funcion para editar el nombre de un estudiante de la lista si existe
     name = validate_string_input("- Ingrese el nuevo nombre: ", "ERROR [!] Se ha ingresado un nombre inválido. El nombre solo debe contener letras y no puede estar vacío, intente nuevamente.")
     for resource in data_list:
-        if resource[1] == identifier:
+        if int(resource[1]) == int(identifier):
             resource[2] = name
     set_data('students.csv', data_list)
     print("\nNombre editado correctamente.\n")
@@ -82,9 +82,9 @@ def edit_name(data_list, identifier):
 
 def edit_degree(data_list, identifier): 
     # funcion para editar la carrera de un estudiante de la lista si existe
-    degree = validate_string_input("- Ingrese la nueva carrera: ", "ERROR [!] Se ha ingresado una carrera inválida. La carrera solo debe contener letras y no puede estar vacía, intente nuevamente.")
+    degree = validate_int_input("- Ingrese la nueva carrera: ", "ERROR [!] Se ha ingresado una carrera inválida. La carrera solo debe contener letras y no puede estar vacía, intente nuevamente.")
     for resource in data_list:
-        if resource[1] == identifier:
+        if int(resource[1]) == int(identifier):
             resource[3] = degree
     set_data('students.csv', students)
     print("\nCarrera editada correctamente.\n")
