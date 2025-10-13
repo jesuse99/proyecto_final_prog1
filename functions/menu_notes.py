@@ -50,7 +50,9 @@ def add_note(notes, students, subjects):
         if validate_identifier(students, student_identifier):
             note_value = get_note()
             date_value = get_date()
-            notes.append([pos, subject_code, student_identifier,note_value,date_value])
+            # Guardamos todos los identificadores y posiciones como strings
+            # para mantener consistencia con la lectura/escritura CSV (csv.reader devuelve strings)
+            notes.append([str(pos), str(subject_code), str(student_identifier), str(note_value), date_value])
             set_data('notes.csv', notes)
             print("\nNota agregada correctamente.\n")
         else: 
@@ -84,12 +86,17 @@ def get_date():
 def set_new_note(notes, student_identifier, subject_identifier, note_date):
     # funcion para editar una nota con una nueva nota ingresada por consola 
     for note in notes:
-        if note[1] == str(subject_identifier) and note[2] == str(student_identifier) and note[4] == str(note_date):
-            note[3] = get_note()
-            note[4] = get_date()
+        # Normalizar comparaciones a strings (las filas cargadas desde CSV son strings)
+        if str(note[1]) == str(subject_identifier) and str(note[2]) == str(student_identifier) and str(note[4]) == str(note_date):
+            # Actualizamos nota y fecha como strings para mantener consistencia
+            note[3] = str(get_note())
+            note[4] = str(get_date())
             set_data('notes.csv', notes)
             print("\nNota editada correctamente.\n")
             return True
+    # Si no encontramos la nota con la materia, legajo y fecha indicados
+    print("\nATENCIÓN [!] No se encontró una nota con la materia, legajo y fecha indicados.\n")
+    return False
 
 """ ----------------------------------------------------------------------------"""
 """ ############################### EDITAR NOTA ############################### """
@@ -103,11 +110,12 @@ def edit_notes(notes, subjects):
         subject_identifier = validate_int_input("- Ingrese el código de la materia cuya nota desea editar: ", "ERROR [!] Se ha ingresado un ID inválido. El ID no puede ser 0 y solo se permiten valores numéricos, intente nuevamente.")
         if validate_identifier(subjects, subject_identifier):
             note_date = get_date()
-            if validate_date(notes, note_date):
-                # si el ID de la materia existe, se procede a buscar la nota correspondiente al estudiante y a la materia
-                print(f"\nEditando notas del estudiante con legajo: {identifier}")
-                # buscamos la nota correspondiente al estudiante y a la materia
-                set_new_note(notes,identifier,subject_identifier, note_date)
+            # Validamos que la fecha exista asociada a alguna nota del estudiante y materia indicados
+            # validate_date sólo comprueba existencia de la fecha en cualquier nota, por eso llamamos directamente a set_new_note
+            print(f"\nEditando notas del estudiante con legajo: {identifier}")
+            found = set_new_note(notes, identifier, subject_identifier, note_date)
+            if not found:
+                print("ATENCIÓN [!] No se pudo editar: no existe una nota con esa materia/legajo/fecha.")
         else:         
             print("ATENCIÓN [!] No se editar una nota para una materia que no existe.")
     else:
