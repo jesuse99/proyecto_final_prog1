@@ -10,7 +10,7 @@ def set_position(data_list):
     if len(data_list) == 0:
         position = 1
     else:
-        position = data_list[-1][0]+1
+        position = int(data_list[-1][0])+1
     return position
 
 """ -------------------------------------------------------------------------------------------------------------------------------"""
