@@ -10,7 +10,7 @@ def set_position(data_list):
     if len(data_list) == 0:
         position = 1
     else:
-        position = data_list[-1][0]+1
+        position = int(data_list[-1][0])+1
     return position
 
 """ -------------------------------------------------------------------------------------------------------------------------------"""
@@ -76,7 +76,7 @@ def get_average(notes):
     total = 0
     amount = 0
     for note in notes:
-        total += note[3]
+        total += int(note[3])
         amount += 1
     if total > 0:
         average = total / amount
