@@ -1,5 +1,5 @@
-from functions.validations import validate_string_input,validate_int_input, validate_identifier, validate_continue, validate_menu_option
-from functions.auxiliars import set_position, set_identifier, get_by_record, get_students_by_career
+from functions.validations import validate_string_input,validate_int_input,validate_identifier, validate_identifier_by_student, validate_continue, validate_menu_option
+from functions.auxiliars import set_position, set_identifier, get_by_student, get_by_career, get_students_by_career
 from utils.data import students, careers
 from utils.service import get_data, set_data
 
@@ -12,16 +12,16 @@ def show_students(students, careers):
     # funcion para mostrar todos los estudiantes de la lista de estudiantes
     print("\n=== MOSTRAR ALUMNOS ===\n")
     for student in students:
-        student_identifier = student[1]
-        student_name = student[2]
-        student_grade = student[3]
+        student_identifier = student["legajo"]
+        student_name = student["nombre"]
+        student_grade = student["carrera"]
 
         # Buscar carrera por su codigo
-        career_data = get_by_record(careers, student_grade)
+        career_data = get_by_career(careers, student_grade)
 
         if career_data:
-            career_name = career_data[2]
-            career_building = career_data[3]
+            career_name = career_data["nombre"]
+            career_building = career_data["facultad"]
             print("Legajo:",student_identifier, " - Nombre:", student_name, "- Carrera:", career_name, " - ", career_building)
 
 student_menu = """
@@ -40,7 +40,7 @@ def add_student(students):
     degree = validate_int_input("- Ingrese el código de carrera del estudiante:", "ERROR [!] Se ha ingresado un codigo inválido. El código solo puede contener números y no puede estar vacío, intente nuevamente.")
     if validate_identifier(careers, degree): 
         students.append([ pos, identifier, name, degree ]) # agregamos el estudiante a la lista
-        set_data('students.csv', students)
+        set_data('students.json', students)
         print("\n [+] Estudiante agregado correctamente.\n")
     else:
         print("ERROR [!] No se puede añadir un estudiante para una carrera que no existe.")
@@ -73,7 +73,7 @@ def edit_name(data_list, identifier):
     for resource in data_list:
         if int(resource[1]) == int(identifier):
             resource[2] = name
-    set_data('students.csv', data_list)
+    set_data('students.json', data_list)
     print("\nNombre editado correctamente.\n")
 
 """ -------------------------------------------------------------------------------"""
@@ -86,7 +86,7 @@ def edit_degree(data_list, identifier):
     for resource in data_list:
         if int(resource[1]) == int(identifier):
             resource[3] = degree
-    set_data('students.csv', data_list)
+    set_data('students.json', data_list)
     print("\nCarrera editada correctamente.\n")
 
 
@@ -97,7 +97,7 @@ def edit_degree(data_list, identifier):
 def edit_student(students):
     # funcion para editar un estudiante de la lista de estudiantes si existe
     identifier = validate_int_input("\n- Ingrese el legajo del estudiante que desea editar: ", "ERROR [!] Se ha ingresado un legajo inválido. El legajo no puede ser 0 y solo se permiten valores numéricos, intente nuevamente.")
-    if validate_identifier(students, identifier): 
+    if validate_identifier_by_student(students, identifier): 
         # si el legajo existe, se procede a la edicion
         print(f"\nEditando estudiante con legajo: {identifier}")
         print(menu_edit_student)
@@ -131,8 +131,8 @@ def search_students_by_career(careers, students):
         students_data = get_students_by_career(students, career_code)
         print(f"Estudiantes para la carrera codigo {career_code}")
         for student in students_data:
-            student_name = student[2]
-            student_indentifier = student[1]
+            student_name = student["nombre"]
+            student_indentifier = student["legajo"]
             print("Nombre: ", student_name, " - Legajo: ", student_indentifier)
     else:
         print("\nATENCIÓN [!] No se encontró una carrera con el código ingresado.\n")
@@ -149,18 +149,18 @@ def search_student_by_record(students, careers):
     # funcion para buscar un estudiante por su legajo
     print(search_students_menu)
     identifier = validate_int_input("\n- Ingrese el legajo del estudiante que desea buscar: ", "ERROR [!] Se ha ingresado un legajo inválido. El legajo no puede ser 0 y solo se permiten valores numéricos, intente nuevamente.")
-    if validate_identifier(students, identifier):
+    if validate_identifier_by_student(students, identifier):
         print("\nResultado de la búsqueda:\n")
-        student = get_by_record(students, identifier)
+        student = get_by_student(students, identifier)
         if student:
-            student_name = student[2]
-            student_career = student[3]
+            student_name = student["nombre"]
+            student_career = student["carrera"]
             # Buscar carrera por su codigo
-            career_data = get_by_record(careers, student_career)
+            career_data = get_by_career(careers, student_career)
 
             if career_data:
-                career_name = career_data[2]
-                career_building = career_data[3]
+                career_name = career_data["nombre"]
+                career_building = career_data["facultad"]
                 print("Legajo:",identifier, " - Nombre:", student_name, "- Carrera:", career_name, " - ", career_building)
     else:
         print("\nATENCIÓN [!] No se encontró un estudiante con el legajo ingresado.\n")

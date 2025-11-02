@@ -40,13 +40,35 @@ def validate_string_input(message, error):
     return string_value
 
 """ ------------------------------------------------------------------------------------------------------------------------------"""
-""" ############################### VALIDAR QUE EL LEGAJO DE ALUMNO O EL CODIGO DE MATERIA EXISTA ############################### """
+""" ############################### VALIDAR QUE EL CODIGO ############################### """
 """ ------------------------------------------------------------------------------------------------------------------------------"""
 
 def validate_identifier(data_list, identifier):
     # Funcion para validar que el id no se encuentre registrado en la lista de estudiantes o materias
     for data in data_list:
-        if data[1] == str(identifier):
+        if str(data["codigo"]) == str(identifier):
+            return True
+    return False
+
+""" ------------------------------------------------------------------------------------------------------------------------------"""
+""" ############################### VALIDAR QUE EL CODIGO ############################### """
+""" ------------------------------------------------------------------------------------------------------------------------------"""
+
+def validate_identifier_by_subject(data_list, identifier):
+    # Funcion para validar que el id no se encuentre registrado en la lista de estudiantes o materias
+    for data in data_list:
+        if str(data["materia"]) == str(identifier):
+            return True
+    return False
+
+""" ------------------------------------------------------------------------------------------------------------------------------"""
+""" ############################### VALIDAR QUE EL LEGAJO DE ALUMNO EXISTA ############################### """
+""" ------------------------------------------------------------------------------------------------------------------------------"""
+
+def validate_identifier_by_student(data_list, identifier):
+    # Funcion para validar que el id no se encuentre registrado en la lista de estudiantes o materias
+    for data in data_list:
+        if str(data["legajo"]) == str(identifier):
             return True
     return False
 
@@ -70,7 +92,7 @@ def validate_continue(message):
 def validate_existing(data_list, code_value):
     # Funcion para validar que exista al menos una nota registrada para el alumno indicado
     for data in data_list:
-        if data[2] == str(code_value):
+        if str(data["legajo"]) == str(code_value):
             return True
     return False
 
@@ -82,7 +104,7 @@ def validate_existing(data_list, code_value):
 def validate_existing_career(careers, career_name, career_org):
     # función para verificar que una carrera está registrada en careers
     for career in careers:
-        if career[2] == career_name and career[3] == career_org:
+        if career["nombre"] == career_name and career["facultad"] == career_org:
             return True
     return False
 

@@ -31,7 +31,7 @@ Desarrollar un sistema en consola que permita gestionar estudiantes y sus califi
 - Implementar funciones para calcular promedios individuales y globales.  
 - Implementar validaciones para entradas del usuario.  
 - Favorecer la comprensión y aplicación de **listas y diccionarios** en Python.  
-- Iniciar el almacenamiento y persistencia de datos en archivo CSV o JSON.  
+- Iniciar el almacenamiento y persistencia de datos en archivo JSON.  
 
 
 ## Requisitos del proyecto
@@ -92,7 +92,7 @@ Menú principal → Submenú → Acción → Validación → Resultado → Retor
 ##  Futuras mejoras
 
 - Usar diccionarios para más claridad  
-- Guardar datos en archivos CSV o JSON  
+- Guardar datos en archivos JSON  
 - Agregar eliminación de registros  
 - Crear interfaz gráfica  
 

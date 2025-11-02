@@ -8,10 +8,10 @@ from functions.notes import show_notes, add_notes, edit_notes, set_new_note, sea
 from functions.careers import show_careers, add_careers
 
 
-students = get_data('students.csv')
-subjects = get_data('subjects.csv')
-notes = get_data('notes.csv')
-careers = get_data('careers.csv')
+students = get_data('students.json')
+subjects = get_data('subjects.json')
+notes = get_data('notes.json')
+careers = get_data('careers.json')
 
 
 main_menu = """
