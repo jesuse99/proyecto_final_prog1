@@ -11,13 +11,18 @@ from utils.service import get_data, set_data
 def show_careers(careers):
     # funcion para mostrar todas las carreras de la lista carreras
     print("\n=== MOSTRAR CARRERAS ===\n")
+    formatted_row = '{:<8} {:<24} {:<30}'
+    print("=================================="*2)
+    print(formatted_row.format("Codigo", "Nombre","Facultad"))
+    print("=================================="*2)
     for career in careers:
         # obtener el codigo, nombre y facultad de la carrera
         career_code = career["codigo"]
         career_name = career["nombre"]
         career_college = career["facultad"]
 
-        print(f"Codigo: {career_code} - Nombre: {career_name} - Facultad: {career_college}")
+        data_row = [career_code, career_name, career_college]
+        print(formatted_row.format(*data_row))
 
 """ --------------------------------------------------------------------------------"""
 """ ############################### AÑADIR CARRERAS ############################### """

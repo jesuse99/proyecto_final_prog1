@@ -11,6 +11,10 @@ from utils.service import get_data, set_data
 def show_students(students, careers):
     # funcion para mostrar todos los estudiantes de la lista de estudiantes
     print("\n=== MOSTRAR ALUMNOS ===\n")
+    formatted_row = '{:<8} {:<18} {:<24} {:<36}'
+    print("==========================================="*2)
+    print(formatted_row.format("Legajo", "Nombre", "Carrera", "Facultad"))
+    print("==========================================="*2)
     for student in students:
         student_identifier = student["legajo"]
         student_name = student["nombre"]
@@ -22,7 +26,9 @@ def show_students(students, careers):
         if career_data:
             career_name = career_data["nombre"]
             career_building = career_data["facultad"]
-            print("Legajo:",student_identifier, " - Nombre:", student_name, "- Carrera:", career_name, " - ", career_building)
+            
+            data_row = [student_identifier, student_name, career_name, career_building]
+            print(formatted_row.format(*data_row))
 
 student_menu = """
 === AGREGAR ESTUDIANTES ===

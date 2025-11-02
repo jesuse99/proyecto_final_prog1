@@ -11,6 +11,10 @@ from utils.service import get_data, set_data
 def show_subjects(subjects, careers):
     # funcion para mostrar todos los estudiantes de la lista de estudiantes
     print("\n=== MOSTRAR MATERIAS ===\n")
+    formatted_row = '{:<10} {:<24} {:<24} {:<28}'
+    print("==============================================="*2)
+    print(formatted_row.format("Codigo", "Nombre", "Carrera", "Facultad"))
+    print("==============================================="*2)
     for subject in subjects:
         subject_code = subject["codigo"]
         subject_name = subject["nombre"]
@@ -22,7 +26,9 @@ def show_subjects(subjects, careers):
         if career_data:
             career_name = career_data["nombre"]
             career_building = career_data["facultad"]
-            print("Código de materia:",subject_code, " - Nombre:", subject_name, "- Carrera:", career_name, " - ", career_building)
+
+            data_row = [subject_code, subject_name, career_name, career_building]
+            print(formatted_row.format(*data_row))
     print()
 
 """ --------------------------------------------------------------------------------"""

@@ -11,6 +11,10 @@ from utils.service import get_data, set_data
 def show_notes(notes, subjects, students):
     # funcion para mostrar todas las notas de la lista notes
     print("\n=== MOSTRAR NOTAS ===\n")
+    formatted_row = '{:<22} {:<18} {:<8} {:<10}'
+    print("================================"*2)
+    print(formatted_row.format("Materia", "Estudiante", "Nota", "Fecha"))
+    print("================================"*2)
     for note in notes:
         # Obtener los IDs de materia y estudiante
         subject_code = note["materia"]
@@ -31,7 +35,9 @@ def show_notes(notes, subjects, students):
         if subject_data and student_data:
             subject_name = subject_data["nombre"]
             student_name = student_data["nombre"]
-            print(f"Materia: {subject_name} - Estudiante: {student_name} - Nota: {note_value} - Fecha: {date_value}")
+
+            data_row = [subject_name, student_name, note_value, date_value]
+            print(formatted_row.format(*data_row))
 
 """ -----------------------------------------------------------------------------"""
 """ ############################### AÑADIR NOTAS ############################### """
