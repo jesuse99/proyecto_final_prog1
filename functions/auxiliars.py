@@ -18,22 +18,9 @@ def set_position(data_list):
 """ -------------------------------------------------------------------------------------------------------------------------------"""
 
 def set_identifier(data_list):
-    identifier = random.randint(1, 9999) #numero aleatorio generado del 1 al 9999
-    while validate_identifier(data_list, identifier):
-        # validamos que el identifier no se encuentre registrado en el sistema
-        identifier = random.randint(1, 9999)
-    return identifier
-
-""" -------------------------------------------------------------------------------------------------------------------------------"""
-""" ############################### FUNCIÓN PARA OBTENER UN ID ALEATORIO QUE NO EXISTA EN LA LISTA ############################### """
-""" -------------------------------------------------------------------------------------------------------------------------------"""
-
-def set_identifier_student(data_list):
-    identifier = str(random.randint(1, 9999)) #numero aleatorio generado del 1 al 9999
-    while validate_identifier_by_student(data_list, identifier):
-        # validamos que el identifier no se encuentre registrado en el sistema
-        identifier = str(random.randint(1, 9999))
-    return identifier
+    identifier = random.randint(1, 9999) # numero aleatorio generado del 1 al 9999
+    # validamos que el identifier no se encuentre registrado en el sistema
+    return identifier if not validate_identifier(data_list, identifier) else set_identifier(data_list)
 
 """ ------------------------------------------------------------------------------------------------------"""
 """ ############################### OBTENER INFORMACIÓN POR LEGAJO ############################### """

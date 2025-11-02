@@ -7,9 +7,9 @@
 
 Integrante, Rol y Tareas 
 
-**Sofía Fernandez** : Team Leader > Desarrollo del sistema, testing y documentación 
-**Jesús Espinoza** : Project Manager > Desarrollo del sistema, testing y documentación 
-**Bárbara Coutinho** : Testing > Desarrollo del sistema, testing y documentación 
+- **Sofía Fernandez** : Team Leader > Desarrollo del sistema, testing y documentación 
+- **Jesús Espinoza** : Project Manager > Desarrollo del sistema, testing y documentación 
+- **Bárbara Coutinho** : Testing > Desarrollo del sistema, testing y documentación 
 
 
 
@@ -36,12 +36,12 @@ Desarrollar un sistema en consola que permita gestionar estudiantes y sus califi
 
 ## Requisitos del proyecto
 
- Mostrar, agregar, editar y eliminar estudiantes 
- Mostrar, agregar, editar y eliminar materias 
- Mostrar, agregar, editar y eliminar notas 
- Mostrar, agregar, editar y eliminar carreras 
- Buscar por estudiante o materia 
- Calcular promedios por alumno y por materia 
+- [x] Mostrar, agregar, editar y eliminar estudiantes 
+- [x] Mostrar, agregar, editar y eliminar materias 
+- [x] Mostrar, agregar, editar y eliminar notas 
+- [x] Mostrar, agregar, editar y eliminar carreras 
+- [x] Buscar por estudiante o materia 
+- [x] Calcular promedios por alumno y por materia 
 
 
 
@@ -71,14 +71,14 @@ proyecto_final_prog1/
 
 ## Listas y estructuras en uso
 
-El sistema utiliza **listas de listas** como estructuras de datos temporales (simulación de base de datos):
+El sistema utiliza **listas de diccionarios** como estructuras de datos temporales (simulación de base de datos):
 
 | Entidad | Estructura | Ejemplo |
 |----------|-------------|---------|
-| **Students** | `[id, legajo, nombre, codigo_carrera]` | `[1, "1111", "Sofía Fernandez", "1010"]` |
-| **Subjects** | `[id, codigo_materia, nombre, codigo_carrera]` | `[1, "1532", "Programación I", "1010"]` |
-| **Careers** | `[id, codigo_carrera, nombre, facultad]` | `[1, "1010", "Ingeniería en Sistemas", "Facultad de Ingeniería"]` |
-| **Notes** | `[id, codigo_materia, legajo_estudiante, nota]` | `[1, "1532", "1111", 90]` |
+| **Students** | `{ id, legajo, nombre, carrera }` | `{ "id": 1, "legajo": 1111, "nombre": "Sofía Fernandez", "carrera": 1010 }` |
+| **Subjects** | `{ id, codigo, nombre, carrera }` | `{ "id": 1, "codigo": 1532, "nombre": "Programación I", "carrera": 1010 }` |
+| **Careers** | `{ id, codigo, nombre, facultad }` | `{ "id": 1, "codigo"; 1010, "nombre": "Ingeniería en Sistemas", "facultad": "Facultad de Ingeniería"]` |
+| **Notes** | `{ id, materia, legajo, nota, fecha }` | `{ "id": 1, "materia": 1532, "legajo": 1111, "nota": 10, "fecha": "2025-11-02" }` |
 
 ---
 
@@ -91,8 +91,8 @@ Menú principal → Submenú → Acción → Validación → Resultado → Retor
 
 ##  Futuras mejoras
 
-- Usar diccionarios para más claridad  
-- Guardar datos en archivos JSON  
+- Usar diccionarios para más claridad
+- Guardar datos en archivos JSON   
 - Agregar eliminación de registros  
 - Crear interfaz gráfica  
 
