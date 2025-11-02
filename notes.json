@@ -1,0 +1,51 @@
+[
+    {
+        "id": 1,
+        "materia": 1532,
+        "legajo": 1111,
+        "nota": 10,
+        "fecha": "2025-10-02"
+    },
+    {
+        "id": 2,
+        "materia": 5784,
+        "legajo": 1111,
+        "nota": 9,
+        "fecha": "2025-10-02"
+    },
+    {
+        "id": 3,
+        "materia": 2897,
+        "legajo": 2222,
+        "nota": 10,
+        "fecha": "2025-10-02"
+    },
+    {
+        "id": 4,
+        "materia": 6992,
+        "legajo": 4444,
+        "nota": 10,
+        "fecha": "2025-10-02"
+    },
+    {
+        "id": 5,
+        "materia": 4120,
+        "legajo": 3333,
+        "nota": 10,
+        "fecha": "2025-10-02"
+    },
+    {
+        "id": 6,
+        "materia": 2897,
+        "legajo": 2222,
+        "nota": 10,
+        "fecha": "2025-11-02"
+    },
+    {
+        "id": 7,
+        "materia": 6606,
+        "legajo": 3333,
+        "nota": 10,
+        "fecha": "2025-11-02"
+    }
+]
