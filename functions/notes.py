@@ -93,9 +93,8 @@ def set_new_note(notes, student_identifier, subject_identifier, note_date):
     for note in notes:
         # Normalizar comparaciones a strings (las filas cargadas desde JSON son strings)
         if str(note["materia"]) == str(subject_identifier) and str(note["legajo"]) == str(student_identifier) and str(note["fecha"]) == str(note_date):
-            # Actualizamos nota y fecha como strings para mantener consistencia
-            note[3] = str(get_note())
-            note[4] = str(get_date())
+            note["nota"] = int(get_note())
+            note["fecha"] = str(get_date())
             set_data('notes.json', notes)
             print("\nNota editada correctamente.\n")
             return True

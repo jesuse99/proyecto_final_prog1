@@ -1,5 +1,5 @@
 from functions.validations import validate_string_input,validate_int_input,validate_identifier, validate_identifier_by_student, validate_continue, validate_menu_option
-from functions.auxiliars import set_position, set_identifier, get_by_student, get_by_career, get_students_by_career
+from functions.auxiliars import set_position, set_identifier_by_student, get_by_student, get_by_career, get_students_by_career
 from utils.data import students, careers
 from utils.service import get_data, set_data
 
@@ -40,12 +40,12 @@ student_menu = """
 
 def add_student(students):
     # Funcion para agregar un estudiante a la lista de estudiantes
-    identifier = set_identifier(students)
     pos =  set_position(students)
+    identifier = set_identifier_by_student(students)
     name = validate_string_input("- Ingrese el nombre del estudiante: ", "ERROR [!] Se ha ingresado un nombre inválido. El nombre solo debe contener letras y no puede estar vacío, intente nuevamente.")
     degree = validate_int_input("- Ingrese el código de carrera del estudiante:", "ERROR [!] Se ha ingresado un codigo inválido. El código solo puede contener números y no puede estar vacío, intente nuevamente.")
     if validate_identifier(careers, degree): 
-        students.append([ pos, identifier, name, degree ]) # agregamos el estudiante a la lista
+        students.append({ "id": pos, "legajo": identifier, "nombre": name, "carrera": degree }) # agregamos el estudiante a la lista
         set_data('students.json', students)
         print("\n [+] Estudiante agregado correctamente.\n")
     else:
@@ -77,8 +77,8 @@ def edit_name(data_list, identifier):
     # funcion para editar el nombre de un estudiante de la lista si existe
     name = validate_string_input("- Ingrese el nuevo nombre: ", "ERROR [!] Se ha ingresado un nombre inválido. El nombre solo debe contener letras y no puede estar vacío, intente nuevamente.")
     for resource in data_list:
-        if int(resource[1]) == int(identifier):
-            resource[2] = name
+        if int(resource["legajo"]) == int(identifier):
+            resource["nombre"] = name
     set_data('students.json', data_list)
     print("\nNombre editado correctamente.\n")
 
@@ -90,8 +90,8 @@ def edit_degree(data_list, identifier):
     # funcion para editar la carrera de un estudiante de la lista si existe
     degree = validate_int_input("- Ingrese la nueva carrera: ", "ERROR [!] Se ha ingresado una carrera inválida. La carrera solo debe contener letras y no puede estar vacía, intente nuevamente.")
     for resource in data_list:
-        if int(resource[1]) == int(identifier):
-            resource[3] = degree
+        if int(resource["legajo"]) == int(identifier):
+            resource["carrera"] = degree
     set_data('students.json', data_list)
     print("\nCarrera editada correctamente.\n")
 

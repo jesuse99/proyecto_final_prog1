@@ -22,6 +22,15 @@ def set_identifier(data_list):
     # validamos que el identifier no se encuentre registrado en el sistema
     return identifier if not validate_identifier(data_list, identifier) else set_identifier(data_list)
 
+""" -------------------------------------------------------------------------------------------------------------------------------"""
+""" ############################### FUNCIÓN PARA OBTENER UN LEGAJO ALEATORIO QUE NO EXISTA EN LA LISTA ############################### """
+""" -------------------------------------------------------------------------------------------------------------------------------"""
+
+def set_identifier_by_student(data_list):
+    identifier = random.randint(1, 9999) # numero aleatorio generado del 1 al 9999
+    # validamos que el identifier no se encuentre registrado en el sistema
+    return identifier if not validate_identifier_by_student(data_list, identifier) else set_identifier(data_list)
+
 """ ------------------------------------------------------------------------------------------------------"""
 """ ############################### OBTENER INFORMACIÓN POR LEGAJO ############################### """
 """ ------------------------------------------------------------------------------------------------------"""
