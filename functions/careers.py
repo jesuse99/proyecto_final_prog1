@@ -1,8 +1,8 @@
-from functions.validations import validate_string_input, validate_continue, validate_existing_career
-from functions.auxiliars import set_position, set_identifier
-from utils.data import careers
-from utils.service import get_data, set_data
+from utils.validations import validate_string_input, validate_continue, validate_existing_career
+from utils.auxiliars import set_position, set_identifier
+from utils.filehandler import get_data, set_data
 
+careers = get_data('careers')
 
 """ --------------------------------------------------------------------------------"""
 """ ############################### MOSTRAR CARRERAS REGISTRADAS ################## """
@@ -40,7 +40,7 @@ def add_career(careers):
     career_org = validate_string_input("- Ingrese el nombre de la facultad: ", "ERROR [!]Se ha ingresado un nombre inválido. El nombre solo debe contener letras y no puede estar vacío, intente nuevamente.")
     if not validate_existing_career(careers,career_name, career_org):
         careers.append({ "id": pos, "codigo": career_code, "nombre": career_name, "facultad": career_org })
-        set_data('careers.json', careers)
+        set_data('careers', careers)
         print("\n [+] Carrera agregada correctamente.\n")
     else:
         print("ATENCIÓN [!] No se puede añadir carrera que ya existe.")

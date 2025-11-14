@@ -1,8 +1,10 @@
-from functions.validations import validate_string_input,validate_int_input, validate_identifier, validate_identifier_by_subject, validate_continue, validate_existing
-from functions.auxiliars import set_position, set_identifier, get_by_subject, get_notes_by_subject_student, get_average
-from utils.data import subjects, notes, careers
-from utils.service import get_data, set_data
+from utils.validations import validate_string_input,validate_int_input, validate_identifier, validate_identifier_by_subject, validate_continue, validate_existing
+from utils.auxiliars import set_position, set_identifier, get_by_subject, get_notes_by_subject_student, get_average
+from utils.filehandler import get_data, set_data
 
+subjects = get_data('subjects')
+notes = get_data('notes')
+careers = get_data('careers')
 
 """ ---------------------------------------------------------------------------------------------"""
 """ ############################### MOSTRAR MATERIAS REGISTRADOS ############################### """
@@ -48,7 +50,7 @@ def add_subject(subjects):
     subject_degree = validate_int_input("- Ingrese el código de carrera de la materia:", "ERROR [!] Se ha ingresado un codigo inválido. El código solo puede contener números y no puede estar vacío, intente nuevamente.")
     if validate_identifier(careers, subject_degree):
         subjects.append({ "id": pos, "codigo": subject_code, "nombre": subject_name, "carrera": subject_degree }) # agregamos la materia a la lista
-        set_data('subjects.json', subjects)
+        set_data('subjects', subjects)
         print("\n [+] Materia agregada correctamente.\n")
     else:
         print("ERROR [!] No se puede añadir una materia para una carrera que no existe.")

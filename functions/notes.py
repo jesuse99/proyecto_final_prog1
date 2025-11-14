@@ -1,8 +1,10 @@
-from functions.validations import validate_int_input, validate_identifier,validate_identifier_by_student, validate_continue, validate_existing, validate_date_input, validate_date
-from functions.auxiliars import set_position, get_by_student, get_by_subject, get_notes_by_student_record
-from utils.data import students, subjects, notes
-from utils.service import get_data, set_data
+from utils.validations import validate_int_input, validate_identifier,validate_identifier_by_student, validate_continue, validate_existing, validate_date_input, validate_date
+from utils.auxiliars import set_position, get_by_student, get_by_subject, get_notes_by_student_record
+from utils.filehandler import get_data, set_data
 
+students = get_data('students')
+subjects = get_data('subjects')
+notes = get_data('notes')
 
 """ ------------------------------------------------------------------------------------------"""
 """ ############################### MOSTRAR NOTAS REGISTRADAS ############################### """
@@ -58,7 +60,7 @@ def add_note(notes, students, subjects):
             date_value = get_date()
             # Guardamos todos los identificadores y posiciones como strings
             notes.append({ "id": pos, "materia": subject_code, "legajo": student_identifier, "nota": note_value, "fecha": date_value })
-            set_data('notes.json', notes)
+            set_data('notes', notes)
             print("\nNota agregada correctamente.\n")
         else: 
             print("ATENCIÓN [!] No se puede añadir una nota para un estudiante que no existe.")
@@ -95,7 +97,7 @@ def set_new_note(notes, student_identifier, subject_identifier, note_date):
         if str(note["materia"]) == str(subject_identifier) and str(note["legajo"]) == str(student_identifier) and str(note["fecha"]) == str(note_date):
             note["nota"] = int(get_note())
             note["fecha"] = str(get_date())
-            set_data('notes.json', notes)
+            set_data('notes', notes)
             print("\nNota editada correctamente.\n")
             return True
     # Si no encontramos la nota con la materia, legajo y fecha indicados

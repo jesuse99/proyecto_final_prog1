@@ -1,5 +1,5 @@
+from utils.validations import validate_identifier, validate_identifier_by_student
 import random
-from functions.validations import validate_identifier, validate_identifier_by_student
 
 """ -------------------------------------------------------------------------------------------------------"""
 """ ############################### FUNCIÓN PARA DEFINIR POSICIÓN EN LISTA ############################### """

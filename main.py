@@ -1,5 +1,5 @@
 from functions.menu import main_menu, add_data_menu, finish_program, edit_by_criteria, show_data_menu, search_by_criteria_menu, get_average_menu
-from functions.validations import validate_menu_option   
+from utils.validations import validate_menu_option   
 
 
 def menu():
