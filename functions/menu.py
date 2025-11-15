@@ -1,7 +1,7 @@
 from functions.students import show_students, add_students, edit_student, search_students_by_career, search_student_by_record
-from functions.subjects import show_subjects, add_subjects, edit_subject, student_average_notes
+from functions.subjects import average_subject, show_subjects, add_subjects, edit_subject, student_average_subject
 from functions.notes import show_notes, add_notes, edit_notes, search_notes_by_student_id
-from functions.careers import show_careers, add_careers, edit_career
+from functions.careers import average_career, show_careers, add_careers, edit_career, student_average_career
 
 from utils.validations import validate_menu_option
 from utils.filehandler import get_data
@@ -105,8 +105,11 @@ def edit_by_criteria():
 menu_average = """
 === GESTIONAR PROMEDIOS ===
 
-1. Calcular promedio de notas de un estudiante en una materia
-2. Volver
+1. Calcular promedio de notas de una materia
+2. Calcular promedio de notas de una carrera
+3. Calcular promedio de notas de un estudiante en una materia
+4. Calcular promedio de notas de un estudiante en una carrera
+5. Volver
 """
 
 """ ----------------------------------------------------------------------------------------------"""
@@ -117,10 +120,16 @@ def get_average_menu():
     # funcion para mostrar el menu de gestion de promedios y llamar a las funciones correspondientes
     print(menu_average)
     option = validate_menu_option()
-    while not option == 2:   
+    while not option == 5:   
         match option:
             case 1:
-                student_average_notes(notes, subjects)
+                average_subject(notes, subjects)
+            case 2:
+                average_career(notes, careers, subjects)
+            case 3:
+                student_average_subject(notes, subjects)
+            case 4:
+                student_average_career(notes, careers, subjects)
         print("\nVolviendo al menú de gestión de promedios...\n")  
         print(menu_average)
         option = validate_menu_option()

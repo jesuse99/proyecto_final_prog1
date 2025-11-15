@@ -101,10 +101,43 @@ def validate_existing(data_list, code_value):
 """ ############################### VALIDAR EXISTENCIA DE CARRERA ############################### """
 """ ----------------------------------------------------------------------------------------------"""
 
-def validate_existing_career(careers, career_name, career_org):
+def validate_existing_career(careers, career_name):
     # función para verificar que una carrera está registrada en careers
     for career in careers:
-        if career["nombre"] == career_name and career["facultad"] == career_org:
+        if career["nombre"].upper() == career_name.upper():
+            return True
+    return False
+
+""" ----------------------------------------------------------------------------------------------"""
+""" ############################### VALIDAR EXISTENCIA DE NOTA ############################### """
+""" ----------------------------------------------------------------------------------------------"""
+
+def validate_existing_note(notes, subject_code, student_identifier, note_value, date_value):
+    # función para verificar que una nota está registrada en notes
+    for note in notes:
+        if int(note["materia"]) == int(subject_code) and int(note["legajo"]) == int(student_identifier) and int(note["nota"]) == int(note_value) and note["fecha"].upper() == date_value.upper():
+            return True
+    return False
+
+""" ----------------------------------------------------------------------------------------------"""
+""" ############################### VALIDAR EXISTENCIA DE ESTUDIANTE ############################### """
+""" ----------------------------------------------------------------------------------------------"""
+
+def validate_existing_student(students, student_name):
+    # función para verificar que un estudiante está registrada en students
+    for student in students:
+        if student["nombre"].upper() == student_name.upper():
+            return True
+    return False
+
+""" ----------------------------------------------------------------------------------------------"""
+""" ############################### VALIDAR EXISTENCIA DE MATERIA ############################### """
+""" ----------------------------------------------------------------------------------------------"""
+
+def validate_existing_subject(subjects, subject_name, subject_degree):
+    # función para verificar que una materia está registrada en subjects
+    for subject in subjects:
+        if subject["nombre"].upper() == subject_name.upper() and int(subject["carrera"]) == int(subject_degree):
             return True
     return False
 

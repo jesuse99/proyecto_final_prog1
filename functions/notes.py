@@ -1,4 +1,4 @@
-from utils.validations import validate_int_input, validate_identifier,validate_identifier_by_student, validate_continue, validate_existing, validate_date_input
+from utils.validations import validate_existing_note, validate_int_input, validate_identifier,validate_identifier_by_student, validate_continue, validate_existing, validate_date_input
 from utils.auxiliars import set_position, get_by_student, get_by_subject, get_notes_by_student_record
 from utils.filehandler import get_data, set_data
 
@@ -58,10 +58,12 @@ def add_note(notes, students, subjects):
         if validate_identifier_by_student(students, student_identifier):
             note_value = get_note()
             date_value = get_date()
-            # Guardamos todos los identificadores y posiciones como strings
-            notes.append({ "id": pos, "materia": subject_code, "legajo": student_identifier, "nota": note_value, "fecha": date_value })
-            set_data('notes', notes)
-            print("\nNota agregada correctamente.\n")
+            if not validate_existing_note(notes, subject_code, student_identifier, note_value, date_value):
+                notes.append({ "id": pos, "materia": subject_code, "legajo": student_identifier, "nota": note_value, "fecha": date_value })
+                set_data('notes', notes)
+                print("\n [+] Nota agregada correctamente.\n")
+            else:
+                print("ATENCIÓN [!] No se puede añadir una nota que ya existe.")
         else: 
             print("ATENCIÓN [!] No se puede añadir una nota para un estudiante que no existe.")
     else:

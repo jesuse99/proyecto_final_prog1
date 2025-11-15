@@ -1,4 +1,4 @@
-from utils.validations import validate_string_input,validate_int_input,validate_identifier, validate_identifier_by_student, validate_continue, validate_menu_option
+from utils.validations import validate_existing_student, validate_string_input,validate_int_input,validate_identifier, validate_identifier_by_student, validate_continue, validate_menu_option
 from utils.auxiliars import set_position, set_identifier_by_student, get_by_student, get_by_career, get_students_by_career
 from utils.filehandler import get_data, set_data
 
@@ -43,12 +43,15 @@ def add_student(students):
     # Funcion para agregar un estudiante a la lista de estudiantes
     pos =  set_position(students)
     identifier = set_identifier_by_student(students)
-    name = validate_string_input("- Ingrese el nombre del estudiante: ", "ERROR [!] Se ha ingresado un nombre inválido. El nombre solo debe contener letras y no puede estar vacío, intente nuevamente.")
-    degree = validate_int_input("- Ingrese el código de carrera del estudiante:", "ERROR [!] Se ha ingresado un codigo inválido. El código solo puede contener números y no puede estar vacío, intente nuevamente.")
-    if validate_identifier(careers, degree): 
-        students.append({ "id": pos, "legajo": identifier, "nombre": name, "carrera": degree }) # agregamos el estudiante a la lista
-        set_data('students', students)
-        print("\n [+] Estudiante agregado correctamente.\n")
+    student_name = validate_string_input("- Ingrese el nombre del estudiante: ", "ERROR [!] Se ha ingresado un nombre inválido. El nombre solo debe contener letras y no puede estar vacío, intente nuevamente.")
+    student_degree = validate_int_input("- Ingrese el código de carrera del estudiante:", "ERROR [!] Se ha ingresado un codigo inválido. El código solo puede contener números y no puede estar vacío, intente nuevamente.")
+    if validate_identifier(careers, student_degree): 
+        if not validate_existing_student(students, student_name):
+            students.append({ "id": pos, "legajo": identifier, "nombre": student_name, "carrera": student_degree }) # agregamos el estudiante a la lista
+            set_data('students', students)
+            print("\n [+] Estudiante agregado correctamente.\n")
+        else:
+            print("ATENCIÓN [!] No se puede añadir un estudiante que ya existe.")
     else:
         print("ERROR [!] No se puede añadir un estudiante para una carrera que no existe.")
 

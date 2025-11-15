@@ -1,5 +1,5 @@
-from utils.validations import validate_identifier, validate_int_input, validate_menu_option, validate_string_input, validate_continue, validate_existing_career
-from utils.auxiliars import set_position, set_identifier
+from utils.validations import validate_existing, validate_identifier, validate_int_input, validate_menu_option, validate_string_input, validate_continue, validate_existing_career
+from utils.auxiliars import get_average, get_by_career, get_notes_by_subject, get_notes_by_subject_student, get_subjects_by_career, set_position, set_identifier
 from utils.filehandler import get_data, set_data
 
 careers = get_data('careers')
@@ -38,7 +38,7 @@ def add_career(careers):
     career_code = set_identifier(careers)
     career_name = validate_string_input("- Ingrese el nombre de la carrera: ", "ERROR [!]Se ha ingresado un nombre inválido. El nombre solo debe contener letras y no puede estar vacío, intente nuevamente.")
     career_org = validate_string_input("- Ingrese el nombre de la facultad: ", "ERROR [!]Se ha ingresado un nombre inválido. El nombre solo debe contener letras y no puede estar vacío, intente nuevamente.")
-    if not validate_existing_career(careers,career_name, career_org):
+    if not validate_existing_career(careers, career_name):
         careers.append({ "id": pos, "codigo": career_code, "nombre": career_name, "facultad": career_org })
         set_data('careers', careers)
         print("\n [+] Carrera agregada correctamente.\n")
@@ -113,4 +113,64 @@ def edit_career(careers):
             option = validate_menu_option() 
     else:
         print("ATENCIÓN [!] No se puede editar una carrera que no existe.")
+
+
+""" ----------------------------------------------------------------------------------------------"""
+""" ############################### CALCULAR PROMEDIO POR CARRERA ############################### """
+""" ----------------------------------------------------------------------------------------------"""
+
+menu_average_title = """
+=== PROMEDIO POR CARRERA ===
+"""
+
+def average_career(notes, careers, subjects):
+    # funcion para calcular el promedio de notas de una carrera
+    print(menu_average_title)
+    career_identifier = validate_int_input("- Ingrese el código de la carrera para calcular el promedio de notas: ", "ERROR [!] Se ha ingresado un ID inválido. El ID no puede ser 0 y solo se permiten valores numéricos, intente nuevamente.")
+    if validate_identifier(careers, career_identifier):
+
+        career_notes = [] 
+        lista1 = get_subjects_by_career(subjects, career_identifier)
+        for i in lista1:
+            lista2 = get_notes_by_subject(notes, i)
+            for j in lista2:
+                career_notes.append(j)
+
+        career_data = get_by_career(careers, career_identifier)
+        if career_notes:
+            average = get_average(career_notes)
+            if average:
+                print(f"\nEl promedio de notas de la carrera {career_data["nombre"]} es: {average:.2f}\n")
+        else:
+            print(f"\nATENCIÓN [!] No se encontraron notas para la carrera con ID {career_identifier}.\n")
+
+""" ----------------------------------------------------------------------------------------------"""
+""" ############################### CALCULAR PROMEDIO DE ESTUDIANTE POR CARRERA ################# """
+""" ----------------------------------------------------------------------------------------------"""
+
+menu_student_average_title = """
+=== PROMEDIO DE ESTUDIANTE POR CARRERA ===
+"""
+
+def student_average_career(notes, careers, subjects):
+    # funcion para calcular el promedio de notas de un estudiante
+    print(menu_student_average_title)
+    identifier = validate_int_input("\n- Ingrese el legajo del estudiante para calcular su promedio de notas: ", "ERROR [!] Se ha ingresado un legajo inválido. El legajo no puede ser 0 y solo se permiten valores numéricos, intente nuevamente.")
+    if validate_existing(notes, identifier):
+        career_identifier = validate_int_input("- Ingrese el código de la carrera para calcular el promedio de notas: ", "ERROR [!] Se ha ingresado un ID inválido. El ID no puede ser 0 y solo se permiten valores numéricos, intente nuevamente.")
+        if validate_identifier(careers, career_identifier):
+
+            career_notes = [] 
+            lista1 = get_subjects_by_career(subjects, career_identifier)
+            for i in lista1:
+                lista2 = get_notes_by_subject(notes, i["codigo"])
+                career_notes.extend(get_notes_by_subject_student(lista2, i["codigo"], identifier))
+
+            career_data = get_by_career(careers, career_identifier)
+            if career_notes:
+                average = get_average(career_notes)
+                if average:
+                    print(f"\nEl promedio de notas del estudiante con legajo {identifier} en la carrera {career_data["nombre"]} es: {average:.2f}\n")
+            else:
+                print(f"\nATENCIÓN [!] No se encontraron notas para la carrera con ID {career_identifier} del estudiante con legajo {identifier}.\n")
 

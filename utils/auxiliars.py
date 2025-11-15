@@ -61,6 +61,19 @@ def get_by_career(data_list, identifier):
             return data
     return None
 
+""" ---------------------------------------------------------------------------------------------------------"""
+""" ############################### OBTENER MATERIAS POR ID DE CARRERA  ############################### """
+""" ---------------------------------------------------------------------------------------------------------"""
+
+def get_subjects_by_career(subjects, career_id):
+    # funcion para obtener las notas de una materia por su ID
+    subjects_career = []
+    for subject in subjects:
+        if int(subject["carrera"]) == int(career_id):
+            subjects_career.append(subject)
+    return subjects_career
+
+
 """ ------------------------------------------------------------------------------------------------------"""
 """ ############################### OBTENER NOTA DE ESTUDIANTE POR LEGAJO ############################### """
 """ ------------------------------------------------------------------------------------------------------"""
@@ -81,6 +94,20 @@ def get_students_by_career(students, identifier):
         if str(student["carrera"]) == str(identifier):
             students_career.append(student)
     return students_career
+
+""" ---------------------------------------------------------------------------------------------------------"""
+""" ############################### OBTENER NOTAS POR ID DE MATERIA ############################### """
+""" ---------------------------------------------------------------------------------------------------------"""
+
+def get_notes_by_subject(notes, subject_id):
+    # funcion para obtener las notas de una materia por su ID
+    subject_notes = []
+    for note in notes:
+        if str(note["materia"]) == str(subject_id):
+            subject_notes.append(note)
+    return subject_notes
+
+
 """ ---------------------------------------------------------------------------------------------------------"""
 """ ############################### OBTENER NOTAS POR LEGAJO Y ID DE MATERIA ############################### """
 """ ---------------------------------------------------------------------------------------------------------"""
