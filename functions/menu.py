@@ -1,7 +1,7 @@
 from functions.students import show_students, add_students, edit_student, search_students_by_career, search_student_by_record
-from functions.subjects import show_subjects, add_subjects, student_average_notes
+from functions.subjects import show_subjects, add_subjects, edit_subject, student_average_notes
 from functions.notes import show_notes, add_notes, edit_notes, search_notes_by_student_id
-from functions.careers import show_careers, add_careers
+from functions.careers import show_careers, add_careers, edit_career
 
 from utils.validations import validate_menu_option
 from utils.filehandler import get_data
@@ -68,8 +68,10 @@ menu_edit = """
 === EDITAR DATOS === 
 
 1. Editar estudiantes
-2. Editar notas
-3. Volver
+2. Editar materias
+3. Editar notas
+4. Editar carreras
+5. Volver
 """
 
 """ ---------------------------------------------------------------------------------------------"""
@@ -80,12 +82,16 @@ def edit_by_criteria():
     # funcion para mostrar el menu de edicion y llamar a las funciones correspondientes segun sea estudiante o materia
     print(menu_edit)
     option = validate_menu_option()
-    while not option == 3:   
+    while not option == 5:   
         match option:
             case 1:
                 edit_student(students)
             case 2:
-                edit_notes(notes, subjects)      
+                edit_subject(subjects)
+            case 3:
+                edit_notes(notes, subjects)
+            case 4:
+                edit_career(careers)
 
         print("\nVolviendo al menú de edición...\n")  
         print(menu_edit) 

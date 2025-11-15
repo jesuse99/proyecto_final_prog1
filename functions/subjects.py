@@ -1,4 +1,4 @@
-from utils.validations import validate_string_input,validate_int_input, validate_identifier, validate_identifier_by_subject, validate_continue, validate_existing
+from utils.validations import validate_string_input,validate_int_input, validate_identifier, validate_identifier_by_subject, validate_continue, validate_existing, validate_menu_option
 from utils.auxiliars import set_position, set_identifier, get_by_subject, get_notes_by_subject_student, get_average
 from utils.filehandler import get_data, set_data
 
@@ -62,6 +62,67 @@ def add_subjects(subjects):
     while option != 'n':
         add_subject(subjects)
         option = validate_continue("\nDesea ingresar otra materia? (s/n): \n")
+
+
+menu_edit_subject = """
+=== EDITAR MATERIA ===
+
+=== Opciones de Edición ===
+
+1. Editar nombre
+2. Editar carrera
+3. Volver
+"""
+
+""" -------------------------------------------------------------------------------"""
+""" ############################### EDITAR NOMBRE ############################### """
+""" -------------------------------------------------------------------------------"""
+
+def edit_name(data_list, code):
+    # funcion para editar el nombre de una materia de la lista si existe
+    name = validate_string_input("- Ingrese el nuevo nombre: ", "ERROR [!] Se ha ingresado un nombre inválido. El nombre solo debe contener letras y no puede estar vacío, intente nuevamente.")
+    for resource in data_list:
+        if int(resource["codigo"]) == int(code):
+            resource["nombre"] = name
+    set_data('subjects', data_list)
+    print("\nNombre editado correctamente.\n")
+
+""" -------------------------------------------------------------------------------"""
+""" ############################### EDITAR CARRERA ############################### """
+""" -------------------------------------------------------------------------------"""
+
+def edit_degree(data_list, code): 
+    # funcion para editar la carrera de una materia de la lista si existe
+    degree = validate_int_input("- Ingrese la nueva carrera: ", "ERROR [!] Se ha ingresado una carrera inválida. La carrera solo debe contener letras y no puede estar vacía, intente nuevamente.")
+    for resource in data_list:
+        if int(resource["codigo"]) == int(code):
+            resource["carrera"] = degree
+    set_data('subjects', data_list)
+    print("\nCarrera editada correctamente.\n")
+
+""" ---------------------------------------------------------------------------------------"""
+""" ############################### MENÚ EDITAR MATERIA ############################### """
+""" ---------------------------------------------------------------------------------------"""
+
+def edit_subject(subjects):
+    # funcion para editar una materia de la lista de materia si existe
+    code = validate_int_input("\n- Ingrese el codigo de la materia que desea editar: ", "ERROR [!] Se ha ingresado un codigo inválido. El codigo no puede ser 0 y solo se permiten valores numéricos, intente nuevamente.")
+    if validate_identifier(subjects, code): 
+        # si el legajo existe, se procede a la edicion
+        print(f"\nEditando materia con codigo: {code}")
+        print(menu_edit_subject)
+        option = validate_menu_option()
+        while not option == 3:   
+            match option:
+                case 1:
+                    edit_name(subjects, code)
+                case 2:
+                    edit_degree(subjects, code)   
+            print("\nVolviendo al menú de edición de materia...\n")  
+            print(menu_edit_subject) 
+            option = validate_menu_option() 
+    else:
+        print("ATENCIÓN [!] No se puede editar una materia que no existe.")
 
 """ ----------------------------------------------------------------------------------------------"""
 """ ############################### CALCULAR PROMEDIO POR MATERIA ############################### """

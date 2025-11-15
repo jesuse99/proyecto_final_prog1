@@ -1,4 +1,4 @@
-from utils.validations import validate_int_input, validate_identifier,validate_identifier_by_student, validate_continue, validate_existing, validate_date_input, validate_date
+from utils.validations import validate_int_input, validate_identifier,validate_identifier_by_student, validate_continue, validate_existing, validate_date_input
 from utils.auxiliars import set_position, get_by_student, get_by_subject, get_notes_by_student_record
 from utils.filehandler import get_data, set_data
 
