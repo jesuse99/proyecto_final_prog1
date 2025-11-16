@@ -1,0 +1,38 @@
+[
+    {
+        "id": 1,
+        "codigo": 1532,
+        "nombre": "Programación I",
+        "carrera": 1010
+    },
+    {
+        "id": 2,
+        "codigo": 2897,
+        "nombre": "Anatomía",
+        "carrera": 1010
+    },
+    {
+        "id": 3,
+        "codigo": 4120,
+        "nombre": "Derecho Penal",
+        "carrera": 2020
+    },
+    {
+        "id": 4,
+        "codigo": 5784,
+        "nombre": "Macroeconomía",
+        "carrera": 3030
+    },
+    {
+        "id": 5,
+        "codigo": 6992,
+        "nombre": "Psicología Cognitiva",
+        "carrera": 5050
+    },
+    {
+        "id": 6,
+        "codigo": 6606,
+        "nombre": "Sistemas Operativos",
+        "carrera": 1010
+    }
+]
