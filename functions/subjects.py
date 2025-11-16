@@ -60,11 +60,11 @@ def add_subject(subjects):
 
 def add_subjects(subjects):
     # funcion para agregar MULTIPLES materias a la lista subjects
-    print(subject_menu)
-    option = 's'
-    while option != 'n':
-        add_subject(subjects)
-        option = validate_continue("\nDesea ingresar otra materia? (s/n): \n")
+    print(subject_menu) # Muestro el menú de agregar materias
+    add_subject(subjects) # Llamada a la función para agregar una materia
+    option = validate_continue("\nDesea ingresar otra materia? (s/n): \n") # Valido si el usuario quiere agregar otra materia
+    if option == 's': # Si el usuario quiere agregar otra materia, entonces llamo a la función recursivamente
+        add_subjects(subjects) # Llamada recursiva para agregar otra materia
 
 
 menu_edit_subject = """

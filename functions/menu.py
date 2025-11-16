@@ -42,27 +42,27 @@ menu_add = """
 
 def add_data_menu():
     # funcion para mostrar el menu de ingreso de datos y llamar a las funciones correspondientes segun sea estudiante o materia
-    print(menu_add)
-    option = validate_menu_option()
-    while not option == 5:   
-        match option:
-            case 1:
-                add_students(students)
-            case 2:
-                add_subjects(subjects)   
-            case 3: 
-                add_notes(notes, students, subjects)    
-            case 4:
-                add_careers(careers)       
+    print(menu_add) # Muestro las opciones del menú de ingreso de datos
+    option = validate_menu_option() # Valido la opción ingresada por el usuario
 
-        print("\nVolviendo al menú de ingreso de datos...\n")  
-        print(menu_add) 
-        option = validate_menu_option()
+    if option == 5: # Si se ingresa la opción 5, se vuelve al menú principal
+        return
+
+    match option:
+        case 1:
+            add_students(students) # Llamada a la función para agregar estudiantes
+        case 2:
+            add_subjects(subjects) # Llamada a la función para agregar materias
+        case 3: 
+            add_notes(notes, students, subjects) # Llamada a la función para agregar notas   
+        case 4:
+            add_careers(careers) # Llamada a la función para agregar carreras
+
+    print("\nSe ha ingresado una opción inválida. \n")  
+    print("\nVolviendo al menú de ingreso de datos...\n")  
+    add_data_menu() # Llamada recursiva para mostrar el menú hasta que el usuario decida volver al menú principal ingresando la opción 5
 
 
-""" ############################################################################# """
-""" ############################## 2. Editar datos ############################## """
-""" ############################################################################# """
 
 menu_edit = """
 === EDITAR DATOS === 
@@ -79,23 +79,26 @@ menu_edit = """
 """ ---------------------------------------------------------------------------------------------"""
 
 def edit_by_criteria():
-    # funcion para mostrar el menu de edicion y llamar a las funciones correspondientes segun sea estudiante o materia
-    print(menu_edit)
-    option = validate_menu_option()
-    while not option == 5:   
-        match option:
-            case 1:
-                edit_student(students)
-            case 2:
-                edit_subject(subjects)
-            case 3:
-                edit_notes(notes, subjects)
-            case 4:
-                edit_career(careers)
+    # funcion para mostrar el menu de edicion y llamar a las funciones correspondientes segun sea estudiante o materia 
+    print(menu_edit) # Muestro las opciones del menú de edición
+    option = validate_menu_option() # Valido la opción ingresada por el usuario
 
-        print("\nVolviendo al menú de edición...\n")  
-        print(menu_edit) 
-        option = validate_menu_option()
+    if option == 5: # Si se ingresa la opción 5, se vuelve al menú principal 
+        return
+
+    match option: # Uso match-case para ejecutar la función correspondiente según la opción ingresada
+        case 1:
+            edit_student(students) # Llamada a la función para editar estudiantes
+        case 2:
+            edit_subject(subjects) # Llamada a la función para editar materias
+        case 3:
+            edit_notes(notes, subjects) # Llamada a la función para editar notas
+        case 4:
+            edit_career(careers) # Llamada a la función para editar carreras
+
+    print("\nSe ha ingresado una opción inválida. \n")  
+    print("\nVolviendo al menú de edición...\n")  
+    edit_by_criteria() # Llamada recursiva para mostrar el menú hasta que el usuario decida volver al menú principal ingresando la opción 5
 
 
 """ #################################################################################### """
@@ -118,21 +121,25 @@ menu_average = """
 
 def get_average_menu():
     # funcion para mostrar el menu de gestion de promedios y llamar a las funciones correspondientes
-    print(menu_average)
-    option = validate_menu_option()
-    while not option == 5:   
-        match option:
-            case 1:
-                average_subject(notes, subjects)
-            case 2:
-                average_career(notes, careers, subjects)
-            case 3:
-                student_average_subject(notes, subjects)
-            case 4:
-                student_average_career(notes, careers, subjects)
-        print("\nVolviendo al menú de gestión de promedios...\n")  
-        print(menu_average)
-        option = validate_menu_option()
+    print(menu_average) # Muestro las opciones del menú de gestión de promedios
+    option = validate_menu_option() # Valido la opción ingresada por el usuario
+    
+    if option == 5: # Si se ingresa la opción 5, se vuelve al menú principal
+        return
+
+    match option: # Uso match-case para ejecutar la función correspondiente según la opción ingresada
+        case 1:
+            average_subject(notes, subjects) # Llamada a la función para calcular promedio de notas de una materia
+        case 2:
+            average_career(notes, careers, subjects) # Llamada a la función para calcular promedio de notas de una carrera
+        case 3:
+            student_average_subject(notes, subjects) # Llamada a la función para calcular promedio de notas de un estudiante en una materia
+        case 4:
+            student_average_career(notes, careers, subjects) # Llamada a la función para calcular promedio de notas de un estudiante en una carrera
+    
+    print("\nSe ha ingresado una opción inválida. \n")          
+    print("\nVolviendo al menú de gestión de promedios...\n")  
+    get_average_menu() # Llamada recursiva para mostrar el menú hasta que el usuario decida volver al menú principal ingresando la opción 5
 
 
 """ #################################################################################### """
@@ -154,19 +161,23 @@ menu_search = """
 
 def search_by_criteria_menu():
     # funcion para mostrar el menu de busqueda por criterio y llamar a las funciones correspondientes segun sea estudiante o materia
-    print(menu_search)
-    option = validate_menu_option()
-    while not option == 4:
-        match option:
-            case 1:
-                search_student_by_record(students, careers)
-            case 2:
-                search_notes_by_student_id(notes, students, subjects)
-            case 3:
-                search_students_by_career(careers, students)
-        print("\nVolviendo al menú de búsqueda por criterio...\n")  
-        print(menu_search)
-        option = validate_menu_option()
+    print(menu_search) # Muestro las opciones del menú de búsqueda por criterio
+    option = validate_menu_option() # Valido la opción ingresada por el usuario
+
+    if option == 4: # Si se ingresa la opción 4, se vuelve al menú principal
+        return
+
+    match option: # Uso match-case para ejecutar la función correspondiente según la opción ingresada
+        case 1:
+            search_student_by_record(students, careers) # Llamada a la función para buscar estudiante por legajo
+        case 2:
+            search_notes_by_student_id(notes, students, subjects) # Llamada a la función para buscar notas por legajo de estudiante
+        case 3:
+            search_students_by_career(careers, students) # Llamada a la función para buscar estudiantes por carrera
+            
+    print("\nSe ha ingresado una opción inválida. \n")          
+    print("\nVolviendo al menú de búsqueda por criterio...\n")  
+    search_by_criteria_menu() # Llamada recursiva para mostrar el menú hasta que el usuario decida volver al menú principal ingresando la opción 4
 
 
 """ ############################################################################## """
@@ -189,21 +200,25 @@ menu_show_data = """
 
 def show_data_menu():
     # funcion para mostrar el menu de mostrar datos y llamar a las funciones correspondientes segun sea estudiantes o notas
-    print(menu_show_data)
-    option = validate_menu_option()
-    while not option == 5:
-        match option:
-            case 1:
-                show_students(students, careers)
-            case 2:
-                show_notes(notes, subjects, students)
-            case 3:
-                show_subjects(subjects, careers)
-            case 4:
-                show_careers(careers)
-        print("\nVolviendo al menú de edición de estudiantes...\n")  
-        print(menu_show_data) 
-        option = validate_menu_option()
+    print(menu_show_data) # Muestro las opciones del menú de mostrar datos
+    option = validate_menu_option() # Valido la opción ingresada por el usuario
+    
+    if option == 5: # Si se ingresa la opción 5, se vuelve al menú principal
+        return
+
+    match option: # Uso match-case para ejecutar la función correspondiente según la opción ingresada
+        case 1:
+            show_students(students, careers) # Llamada a la función para mostrar estudiantes
+        case 2:
+            show_notes(notes, subjects, students) # Llamada a la función para mostrar notas
+        case 3:
+            show_subjects(subjects, careers) # Llamada a la función para mostrar materias
+        case 4:
+            show_careers(careers) # Llamada a la función para mostrar carreras
+
+    print("\nSe ha ingresado una opción inválida. \n")          
+    print("\nVolviendo al menú de edición de estudiantes...\n")  
+    show_data_menu() # Llamada recursiva para mostrar el menú hasta que el usuario decida volver al menú principal ingresando la opción 5
     
 
 """ ###################################################################### """
@@ -217,3 +232,4 @@ def show_data_menu():
 def finish_program():
     print("Cerrando programa..")
     print("Programa finalizado")
+    exit()

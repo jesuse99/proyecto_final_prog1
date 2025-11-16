@@ -47,12 +47,11 @@ def add_career(careers):
 
 def add_careers(careers):
     # funcion para añadir MULTIPLES carreras a la lista careers
-    print(career_menu)
-    option = 's'
-    while option != 'n':
-        add_career(careers)
-        option = validate_continue("\nDesea ingresar otra carrera? (s/n): \n")
-
+    print(career_menu) # Muestro el menú de agregar carreras
+    add_career(careers) # Llamada a la función para agregar una carrera
+    option = validate_continue("\nDesea ingresar otra carrera? (s/n): \n") # Valido si el usuario quiere agregar otra carrera
+    if option == 's': # Si el usuario quiere agregar otra carrera, entonces llamo a la función recursivamente
+        add_careers(careers) # Llamada recursiva para agregar otra carrera
 
 menu_edit_career = """
 === EDITAR CARRERA ===
