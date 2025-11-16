@@ -63,6 +63,7 @@ def add_students(students):
     if option == 's': 
         add_students(students) # Llamada recursiva para agregar otro estudiante 
 
+
 menu_edit_student = """
 === EDITAR ESTUDIANTE ===
 
@@ -123,6 +124,34 @@ def edit_student(students):
             option = validate_menu_option() 
     else:
         print("ATENCIÓN [!] No se puede editar un estudiante que no existe.")
+
+
+menu_delete_student = """
+=== ELIMINAR ESTUDIANTES ===
+"""
+
+""" -----------------------------------------------------------------------------------"""
+""" ############################### ELIMINAR ESTUDIANTES ############################### """
+""" -----------------------------------------------------------------------------------"""
+
+def delete_student(students):
+    # Funcion para eliminar un estudiante a la lista de estudiantes
+    identifier = validate_int_input("\n- Ingrese el legajo del estudiante que desea editar: ", "ERROR [!] Se ha ingresado un legajo inválido. El legajo no puede ser 0 y solo se permiten valores numéricos, intente nuevamente.")
+    if validate_identifier_by_student(students, identifier): 
+            student = get_by_student(students, identifier) # obtenemos el estudiante por legajo
+            students.remove(student) # eliminamos el estudiante de la lista
+            set_data('students', students)
+            print("\n [x] Estudiante eliminado correctamente.\n")
+    else:
+        print("ATENCIÓN [!] No se puede eliminar un estudiante que no existe.")
+
+def delete_students(students):
+    # Funcion para eliminar MULTIPLES estudiantes a la lista de estudiantes
+    print(menu_delete_student) # Muestro el menú de eliminar estudiantes
+    delete_student(students) # Llamada a la función para eliminar un estudiante
+    option = validate_continue("\nDesea eliminar otro estudiante? (s/n): \n") 
+    if option == 's': 
+        delete_students(students) # Llamada recursiva para eliminar otro estudiante 
 
 """ -----------------------------------------------------------------------------------------------"""
 """ ############################### BUSCAR ESTUDIANTES POR CARRERA ############################### """

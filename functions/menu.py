@@ -1,7 +1,7 @@
-from functions.students import show_students, add_students, edit_student, search_students_by_career, search_student_by_record
-from functions.subjects import average_subject, show_subjects, add_subjects, edit_subject, student_average_subject
-from functions.notes import show_notes, add_notes, edit_notes, search_notes_by_student_id
-from functions.careers import average_career, show_careers, add_careers, edit_career, student_average_career
+from functions.students import show_students, add_students, edit_student, delete_student, search_students_by_career, search_student_by_record
+from functions.subjects import average_subject, show_subjects, add_subjects, edit_subject, delete_subject, student_average_subject
+from functions.notes import show_notes, add_notes, edit_notes, delete_notes, search_notes_by_student_id
+from functions.careers import average_career, show_careers, add_careers, edit_career, delete_career, student_average_career
 
 from utils.validations import validate_menu_option
 from utils.filehandler import get_data
@@ -16,10 +16,11 @@ main_menu = """
 
 1. Ingresar datos
 2. Editar datos
-3. Gestionar promedios
-4. Buscar por criterio
-5. Mostrar datos
-6. Salir
+3. Eliminar datos
+4. Gestionar promedios
+5. Buscar por criterio
+6. Mostrar datos
+7. Salir
 """
 
 """ ########################################################### """
@@ -45,9 +46,6 @@ def add_data_menu():
     print(menu_add) # Muestro las opciones del menú de ingreso de datos
     option = validate_menu_option() # Valido la opción ingresada por el usuario
 
-    if option == 5: # Si se ingresa la opción 5, se vuelve al menú principal
-        return
-
     match option:
         case 1:
             add_students(students) # Llamada a la función para agregar estudiantes
@@ -57,8 +55,11 @@ def add_data_menu():
             add_notes(notes, students, subjects) # Llamada a la función para agregar notas   
         case 4:
             add_careers(careers) # Llamada a la función para agregar carreras
+        case 5:
+            return # Si se ingresa la opción 5, se vuelve al menú principal 
+        case _:
+            print("\nSe ha ingresado una opción inválida. \n")
 
-    print("\nSe ha ingresado una opción inválida. \n")  
     print("\nVolviendo al menú de ingreso de datos...\n")  
     add_data_menu() # Llamada recursiva para mostrar el menú hasta que el usuario decida volver al menú principal ingresando la opción 5
 
@@ -83,9 +84,6 @@ def edit_by_criteria():
     print(menu_edit) # Muestro las opciones del menú de edición
     option = validate_menu_option() # Valido la opción ingresada por el usuario
 
-    if option == 5: # Si se ingresa la opción 5, se vuelve al menú principal 
-        return
-
     match option: # Uso match-case para ejecutar la función correspondiente según la opción ingresada
         case 1:
             edit_student(students) # Llamada a la función para editar estudiantes
@@ -95,10 +93,50 @@ def edit_by_criteria():
             edit_notes(notes, subjects) # Llamada a la función para editar notas
         case 4:
             edit_career(careers) # Llamada a la función para editar carreras
+        case 5:
+            return # Si se ingresa la opción 5, se vuelve al menú principal 
+        case _:
+            print("\nSe ha ingresado una opción inválida. \n")
 
-    print("\nSe ha ingresado una opción inválida. \n")  
     print("\nVolviendo al menú de edición...\n")  
     edit_by_criteria() # Llamada recursiva para mostrar el menú hasta que el usuario decida volver al menú principal ingresando la opción 5
+
+
+menu_delete = """
+=== ElLIMINAR DATOS === 
+
+1. Eliminar estudiantes
+2. Eliminar materias
+3. Eliminar notas
+4. Eliminar carreras
+5. Volver
+"""
+
+""" ---------------------------------------------------------------------------------------------"""
+""" ############################### MENÚ CON OPCIONES DE ELIMINAR ############################### """
+""" ---------------------------------------------------------------------------------------------"""
+
+def delete_data_menu():
+    # funcion para mostrar el menu de borrado y llamar a las funciones correspondientes segun sea estudiante o materia 
+    print(menu_delete) # Muestro las opciones del menú de borrado
+    option = validate_menu_option() # Valido la opción ingresada por el usuario
+
+    match option: # Uso match-case para ejecutar la función correspondiente según la opción ingresada
+        case 1:
+            delete_student(students) # Llamada a la función para borrado de estudiantes
+        case 2:
+            delete_subject(subjects) # Llamada a la función para borrado de materias
+        case 3:
+            delete_notes(notes) # Llamada a la función para borrado de notas
+        case 4:
+            delete_career(careers) # Llamada a la función para borrado de carreras
+        case 5:
+            return # Si se ingresa la opción 5, se vuelve al menú principal 
+        case _:
+            print("\nSe ha ingresado una opción inválida. \n")
+              
+    print("\nVolviendo al menú de borrado...\n")  
+    delete_data_menu() # Llamada recursiva para mostrar el menú hasta que el usuario decida volver al menú principal ingresando la opción 5
 
 
 """ #################################################################################### """

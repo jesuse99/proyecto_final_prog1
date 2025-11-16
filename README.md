@@ -46,41 +46,32 @@ Desarrollar un sistema en consola que permita gestionar estudiantes y sus califi
 
 
 ##  Estructura del proyecto
-proyecto_final_prog1/
+```proyecto_final_prog1/
 ├── main.py
 ├── functions/
 │   ├── menu.py
+│   ├── careers.py
+│   ├── notes.py
+│   ├── students.py
+│   └── subjects.py
+├── utils/
 │   ├── auxiliars.py
+│   ├── filehandler.py
 │   └── validations.py
+├── data/
+│   ├── careers.json
+│   ├── notes.json
+│   ├── students.json
+│   └── subjects.json
 ├── README.md
 ├── LICENSE
 └── .gitignore
+```
 
 
 
-### Descripción de módulos
-
-| Módulo | Descripción |
-|--------|--------------|
-| **main.py** | Punto de entrada del programa. Carga datos iniciales (carreras, materias, estudiantes y notas) y gestiona el flujo del menú principal. |
-| **menu.py** | Contiene las funciones que implementan los menús interactivos de alta, edición, búsqueda, promedios y visualización. |
-| **auxiliars.py** | Funciones de soporte: cálculo de promedios, filtros, generación de IDs, etc. |
-| **validations.py** | Validaciones de datos: entradas del usuario, formatos, existencia de registros, etc. |
 
 
-
-## Listas y estructuras en uso
-
-El sistema utiliza **listas de diccionarios** como estructuras de datos temporales (simulación de base de datos):
-
-| Entidad | Estructura | Ejemplo |
-|----------|-------------|---------|
-| **Students** | `{ id, legajo, nombre, carrera }` | `{ "id": 1, "legajo": 1111, "nombre": "Sofía Fernandez", "carrera": 1010 }` |
-| **Subjects** | `{ id, codigo, nombre, carrera }` | `{ "id": 1, "codigo": 1532, "nombre": "Programación I", "carrera": 1010 }` |
-| **Careers** | `{ id, codigo, nombre, facultad }` | `{ "id": 1, "codigo"; 1010, "nombre": "Ingeniería en Sistemas", "facultad": "Facultad de Ingeniería"]` |
-| **Notes** | `{ id, materia, legajo, nota, fecha }` | `{ "id": 1, "materia": 1532, "legajo": 1111, "nota": 10, "fecha": "2025-11-02" }` |
-
----
 
 ## Lógica del programa
 
@@ -89,13 +80,11 @@ Menú principal → Submenú → Acción → Validación → Resultado → Retor
 
 
 
-##  Futuras mejoras
+##  Mejoras agregadas
 
-- Usar diccionarios para más claridad
+- Diccionarios para más claridad
 - Guardar datos en archivos JSON   
-- Agregar eliminación de registros  
-- Crear interfaz gráfica  
-
+- Eliminación de registros  
 
 
 ##  Repositorio original

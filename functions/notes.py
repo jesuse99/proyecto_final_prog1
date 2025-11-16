@@ -1,5 +1,5 @@
 from utils.validations import validate_existing_note, validate_int_input, validate_identifier,validate_identifier_by_student, validate_continue, validate_existing, validate_date_input
-from utils.auxiliars import set_position, get_by_student, get_by_subject, get_notes_by_student_record
+from utils.auxiliars import set_position, get_by_student, get_by_subject, get_by_note, get_notes_by_student_record
 from utils.filehandler import get_data, set_data
 
 students = get_data('students')
@@ -129,6 +129,37 @@ def edit_notes(notes, subjects):
             print("ATENCIÓN [!] No se editar una nota para una materia que no existe.")
     else:
         print("ATENCIÓN [!] No se puede editar las notas de un estudiante que no existe.")
+
+
+menu_delete_note = """
+=== ELIMINAR NOTA ===
+"""
+
+""" -----------------------------------------------------------------------------------"""
+""" ############################### ELIMINAR NOTA ################################# """
+""" -----------------------------------------------------------------------------------"""
+
+def delete_note(notes):
+    # Funcion para eliminar una nota a la lista de notas
+    note_subject = validate_int_input("\n- Ingrese el codigo de la materia cuya nota desea eliminar: ", "ERROR [!] Se ha ingresado un codigo inválido. El codigo no puede ser 0 y solo se permiten valores numéricos, intente nuevamente.")
+    note_student = validate_int_input("\n- Ingrese el legajo del estudiante cuya nota desea eliminar: ", "ERROR [!] Se ha ingresado un legajo inválido. El legajo no puede ser 0 y solo se permiten valores numéricos, intente nuevamente.")
+    note_date = validate_date_input("- Ingrese la fecha de la nota que desea eliminar: ", "ERROR [!] Se ha ingresado una fecha inválida. La fecha debe tener el formato yyyy-MM-dd, intente nuevamente.")
+    note = get_by_note(notes, note_subject, note_student, note_date) # obtenemos la nota por materia, estudiante y fecha
+    if note: 
+        notes.remove(note) # eliminamos la nota de la lista
+        set_data('notes', notes)
+        print("\n [x] Nota eliminada correctamente.\n")
+    else:
+        print("ATENCIÓN [!] No se puede eliminar una nota que no existe.")
+
+def delete_notes(notes):
+    # Funcion para eliminar MULTIPLES notas de la lista de notas
+    print(menu_delete_note) # Muestro el menú de eliminar notas
+    delete_note(notes) # Llamada a la función para eliminar una nota
+    option = validate_continue("\nDesea eliminar otra nota? (s/n): \n") 
+    if option == 's': 
+        delete_note(notes) # Llamada recursiva para eliminar otra nota 
+
 
 """ ----------------------------------------------------------------------------------------"""
 """ ############################### BUSCAR NOTAS POR LEGAJO ############################### """

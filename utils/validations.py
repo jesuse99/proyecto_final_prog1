@@ -40,7 +40,7 @@ def validate_string_input(message, error):
     string_value = input(message).strip() # Solicito el valor al usuario y elimino espacios en blanco al inicio y al final
 
     # Expresión regular: rechaza si hay números (0-9)
-    if string_value != "" and not re.search(r"\d", string_value): # Si el valor no está vacío y no contiene números, lo retorno
+    if string_value != "" and not re.search(r"\d", string_value) and len(string_value) > 3: # Si el valor no está vacío y no contiene números, lo retorno
         return string_value
     
     print(error) # Si el valor ingresado no es valido, muestro el mensaje de error

@@ -114,6 +114,33 @@ def edit_career(careers):
         print("ATENCIÓN [!] No se puede editar una carrera que no existe.")
 
 
+menu_delete_career = """
+=== ELIMINAR CARRERA ===
+"""
+
+""" -----------------------------------------------------------------------------------"""
+""" ############################### ELIMINAR CARRERA ################################# """
+""" -----------------------------------------------------------------------------------"""
+
+def delete_career(careers):
+    # Funcion para eliminar una carrera a la lista de carreras
+    career_code = validate_int_input("\n- Ingrese el codigo de la carrera que desea eliminar: ", "ERROR [!] Se ha ingresado un codigo inválido. El codigo no puede ser 0 y solo se permiten valores numéricos, intente nuevamente.")
+    if validate_identifier(careers, career_code): 
+            career = get_by_career(careers, career_code) # obtenemos la carrera por el codigo 
+            careers.remove(career) # eliminamos la carrera de la lista
+            set_data('careers', careers)
+            print("\n [x] Carrera eliminada correctamente.\n")
+    else:
+        print("ATENCIÓN [!] No se puede eliminar una carrera que no existe.")
+
+def delete_careers(careers):
+    # Funcion para eliminar MULTIPLES carreras de la lista de carreras
+    print(menu_delete_career) # Muestro el menú de eliminar carreras
+    delete_career(careers) # Llamada a la función para eliminar una carrera
+    option = validate_continue("\nDesea eliminar otra carrera? (s/n): \n") 
+    if option == 's': 
+        delete_career(careers) # Llamada recursiva para eliminar otra carrera 
+
 """ ----------------------------------------------------------------------------------------------"""
 """ ############################### CALCULAR PROMEDIO POR CARRERA ############################### """
 """ ----------------------------------------------------------------------------------------------"""

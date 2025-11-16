@@ -42,12 +42,22 @@ def get_by_student(data_list, identifier):
     return None
 
 """ ------------------------------------------------------------------------------------------------------"""
-""" ############################### OBTENER INFORMACIÓN POR CODIGO ############################### """
+""" ############################### OBTENER INFORMACIÓN POR MATERIA ############################### """
 """ ------------------------------------------------------------------------------------------------------"""
 def get_by_subject(data_list, identifier):
     # funcion para obtener un estudiante por su legajo
     for data in data_list:
         if str(data["codigo"]) == str(identifier):
+            return data
+    return None
+
+""" ------------------------------------------------------------------------------------------------------"""
+""" ############################### OBTENER INFORMACIÓN POR NOTA ############################### """
+""" ------------------------------------------------------------------------------------------------------"""
+def get_by_note(data_list, note_subject, note_student, note_date):
+    # funcion para obtener una nota por materia, legajo y fecha
+    for data in data_list:
+        if int(data["materia"]) == int(note_subject) and int(data["legajo"]) == int(note_student) and str(data["fecha"]) == str(note_date):
             return data
     return None
 

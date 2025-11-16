@@ -127,6 +127,34 @@ def edit_subject(subjects):
     else:
         print("ATENCIÓN [!] No se puede editar una materia que no existe.")
 
+
+menu_delete_subject = """
+=== ELIMINAR MATERIA ===
+"""
+
+""" -----------------------------------------------------------------------------------"""
+""" ############################### ELIMINAR MATERIA ################################# """
+""" -----------------------------------------------------------------------------------"""
+
+def delete_subject(subjects):
+    # Funcion para eliminar una materia a la lista de materias
+    subject_code = validate_int_input("\n- Ingrese el codigo de la materia que desea eliminar: ", "ERROR [!] Se ha ingresado un codigo inválido. El codigo no puede ser 0 y solo se permiten valores numéricos, intente nuevamente.")
+    if validate_identifier(subjects, subject_code): 
+            subject = get_by_subject(subjects, subject_code) # obtenemos la materia por el codigo 
+            subjects.remove(subject) # eliminamos la materia de la lista
+            set_data('subjects', subjects)
+            print("\n [x] Materia eliminada correctamente.\n")
+    else:
+        print("ATENCIÓN [!] No se puede eliminar una materia que no existe.")
+
+def delete_subjects(subjects):
+    # Funcion para eliminar MULTIPLES materias de la lista de materias
+    print(menu_delete_subject) # Muestro el menú de eliminar materias
+    delete_subject(subjects) # Llamada a la función para eliminar una materia
+    option = validate_continue("\nDesea eliminar otra materia? (s/n): \n") 
+    if option == 's': 
+        delete_subject(subjects) # Llamada recursiva para eliminar otra materia 
+
 """ ----------------------------------------------------------------------------------------------"""
 """ ############################### CALCULAR PROMEDIO POR MATERIA ############################### """
 """ ----------------------------------------------------------------------------------------------"""
