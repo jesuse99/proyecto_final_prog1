@@ -7,12 +7,15 @@ import re
 """ --------------------------------------------------------------------------------------------------------"""
 
 def validate_menu_option():
-    # Funcion para validar la opcion ingresada por el usuario en el menú. Debe ser un numero entre 1 y 5.
-    option = input("Seleccione una opción: ")
-    while not option.isdigit() or int(option) < 1 or int(option) > 6:
-        print("Se ha ingresado una opción inválida. La opción no puede estar vacía o ser 0. Solo se permiten valores numéricos, intente nuevamente.")
-        option = input("Seleccione una opción: ")
-    return int(option)
+    # Funcion para validar la opcion ingresada por el usuario en el menú. Debe ser un numero entre 1 y 6. 
+    option = input("Seleccione una opción: ") # Solicito la opción al usuario
+
+    if option.isdigit() and 1 <= int(option) <= 6: # Si la opción es un número entre 1 y 6, la retorno
+        return int(option)
+    
+    # Si la opción no es válida, muestro un mensaje de error y solicito la opción nuevamente
+    print("Se ha ingresado una opción inválida. La opción no puede estar vacía o ser 0. Solo se permiten valores numéricos, intente nuevamente.")
+    return validate_menu_option() # Llamada recursiva para solicitar la opción nuevamente si la opción ingresada no es válida
 
 
 """ --------------------------------------------------------------------------------------------------------------------"""
@@ -20,24 +23,28 @@ def validate_menu_option():
 """ --------------------------------------------------------------------------------------------------------------------"""
 
 def validate_int_input(message, error):
-    # Funcion para validar que el input sea un numero entero mayor a 0
-    int_value = input(message)
-    while not int_value.isdigit() or int(int_value) < 0:
-        print(error)
-        int_value = input(message)
-    return int(int_value)
+    # Funcion para validar que el input sea un numero entero mayor o igual a 0
+    int_value = input(message) # Solicito el valor al usuario
+    
+    if int_value.isdigit() and int(int_value) >= 0: # Si el valor es un numero entero mayor o igual a 0, lo retorno
+        return int(int_value)
+    
+    print(error) # Si el valor no es valido, muestro el mensaje de error
+    return validate_int_input(message, error) # Llamada recursiva para solicitar el valor nuevamente si el valor ingresado no es valido
 
 """ -------------------------------------------------------------------------------------------------------------"""
 """ ############################### VALIDAR QUE EL VALOR INGRESADO SEA UN STRING ############################### """
 """ -------------------------------------------------------------------------------------------------------------"""
 def validate_string_input(message, error):
     # función para validar que el input sean caracteres excepto dígitos y que no sea vacío
-    string_value = input(message).strip()
+    string_value = input(message).strip() # Solicito el valor al usuario y elimino espacios en blanco al inicio y al final
+
     # Expresión regular: rechaza si hay números (0-9)
-    while string_value == "" or re.search(r"\d", string_value):
-        print(error)
-        string_value = input(message).strip()
-    return string_value
+    if string_value != "" and not re.search(r"\d", string_value): # Si el valor no está vacío y no contiene números, lo retorno
+        return string_value
+    
+    print(error) # Si el valor ingresado no es valido, muestro el mensaje de error
+    return validate_string_input(message, error) # Llamada recursiva para solicitar el valor nuevamente si el valor ingresado no es valido
 
 """ ------------------------------------------------------------------------------------------------------------------------------"""
 """ ############################### VALIDAR QUE EL CODIGO EXISTA EN LA LISTA ############################### """
@@ -78,11 +85,13 @@ def validate_identifier_by_student(data_list, identifier):
 
 def validate_continue(message):
     # Funcion para validar que la opcion ingresada sea 's' o 'n'
-    option = str(input(message)).lower()
-    while option not in ('s', 'n'): # validamos que la opcion ingresada sea 's' o 'n'
-        print("\nOpción inválida. Debe ser 's' (sí) o 'n' (no).\n")
-        option = str(input(message)).lower()
-    return option
+    option = str(input(message)).lower() # Solicito la opción al usuario y la convierto a minúsculas
+    
+    if option in ('s', 'n'): # Si la opción es 's' o 'n', la retorno
+        return option
+        
+    print("\nOpción inválida. Debe ser 's' (sí) o 'n' (no).\n") # Si la opción no es válida, muestro un mensaje de error
+    return validate_continue(message) # Llamada recursiva para solicitar la opción nuevamente si la opción ingresada no es válida
 
 
 """ --------------------------------------------------------------------------------------------------------------"""
@@ -147,19 +156,16 @@ def validate_existing_subject(subjects, subject_name, subject_degree):
 """ ----------------------------------------------------------------------------------------------"""
 
 def validate_date_input(message, error):
-    # función para validar que el input sean caracteres excepto dígitos y que no sea vacío
-    string_value = input(message).strip()
-    date_valid = False
-    while not date_valid:
-        try:
-            # valida que la fecha es valida y tiene el formato correcto
-            datetime.strptime(string_value, r'%Y-%m-%d')
-            date_valid = True
-        except ValueError: 
-            print(error)
-            string_value = input(message).strip()
-            date_valid = False
-    return string_value
+    # función para validar que el input sea una fecha válida
+    string_value = input(message).strip() # Solicito el valor al usuario y elimino espacios en blanco al inicio y al final
+    
+    try: # Intento convertir el valor a una fecha con el formato YYYY-MM-DD
+        datetime.strptime(string_value, r'%Y-%m-%d') # Si el valor es una fecha válida, la retorno
+        return string_value # Retorno la fecha válida
+    
+    except ValueError:  # Si el valor no es una fecha válida, muestro un error y vuelvo a pedir el valor
+        print(error) # Muestro el mensaje de error
+        return validate_date_input(message, error) # Llamada recursiva para solicitar el valor nuevamente si el valor ingresado no es valido
 
 """ ----------------------------------------------------------------------------------------------"""
 """ ############################### VALIDAR QUE EXISTA LA FECHA EN NOTA ######################### """

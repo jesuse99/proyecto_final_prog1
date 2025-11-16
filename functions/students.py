@@ -57,11 +57,11 @@ def add_student(students):
 
 def add_students(students):
     # Funcion para agregar MULTIPLES estudiantes a la lista de estudiantes
-    print(student_menu)
-    option = 's'
-    while option != 'n':
-        add_student(students)
-        option = validate_continue("\nDesea ingresar otro estudiante? (s/n): \n")
+    print(student_menu) # Muestro el menú de agregar estudiantes
+    add_student(students) # Llamada a la función para agregar un estudiante
+    option = validate_continue("\nDesea ingresar otro estudiante? (s/n): \n") 
+    if option == 's': 
+        add_students(students) # Llamada recursiva para agregar otro estudiante 
 
 menu_edit_student = """
 === EDITAR ESTUDIANTE ===

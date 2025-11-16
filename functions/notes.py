@@ -69,13 +69,14 @@ def add_note(notes, students, subjects):
     else:
         print("ATENCIÓN [!] No se puede añadir una nota para una materia que no existe.")
 
+
 def add_notes(notes, students, subjects):
     # funcion para añadir MULTIPLES notas a la lista notes
-    print(note_menu)
-    option = 's'
-    while option != 'n':
-        add_note(notes, students, subjects)
-        option = validate_continue("\nDesea ingresar otra nota? (s/n): \n")
+    print(note_menu) # Muestro el menú de agregar notas
+    add_note(notes, students, subjects) # Llamada a la función para agregar una nota
+    option = validate_continue("\nDesea ingresar otra nota? (s/n): \n") # Valido si el usuario quiere agregar otra nota
+    if option == 's': # Si el usuario quiere agregar otra nota, entonces llamo a la función recursivamente
+        add_notes(notes, students, subjects) # Llamada recursiva para agregar otra nota
     
 """ ----------------------------------------------------------------------------------"""
 """ ############################### SETEAR NUEVA NOTA ############################### """
