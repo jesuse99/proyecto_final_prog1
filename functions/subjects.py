@@ -1,4 +1,4 @@
-from utils.validations import validate_existing_subject, validate_string_input,validate_int_input, validate_identifier, validate_identifier_by_subject, validate_continue, validate_existing, validate_menu_option
+from utils.validations import validate_existing_subject, validate_string_input,validate_int_input, validate_identifier, validate_identifier_by_subject, validate_continue, validate_existing, validate_submenu_option
 from utils.auxiliars import get_notes_by_subject, set_position, set_identifier, get_by_subject, get_notes_by_subject_student, get_average
 from utils.filehandler import get_data, set_data
 
@@ -114,7 +114,7 @@ def edit_subject(subjects):
         # si el legajo existe, se procede a la edicion
         print(f"\nEditando materia con codigo: {code}")
         print(menu_edit_subject)
-        option = validate_menu_option()
+        option = validate_submenu_option()
         while not option == 3:   
             match option:
                 case 1:
@@ -123,7 +123,7 @@ def edit_subject(subjects):
                     edit_degree(subjects, code)   
             print("\nVolviendo al menú de edición de materia...\n")  
             print(menu_edit_subject) 
-            option = validate_menu_option() 
+            option = validate_submenu_option() 
     else:
         print("ATENCIÓN [!] No se puede editar una materia que no existe.")
 
@@ -166,7 +166,7 @@ menu_average_title = """
 def average_subject(notes, subjects):
     # funcion para calcular el promedio de notas de una materia
     print(menu_average_title)
-    subject_identifier = validate_int_input("- Ingrese el código de la materia para calcular el promedio de notas: ", "ERROR [!] Se ha ingresado un ID inválido. El ID no puede ser 0 y solo se permiten valores numéricos, intente nuevamente.")
+    subject_identifier = validate_int_input("- Ingrese el código de la materia para calcular el promedio de notas: ", "ERROR [!] Se ha ingresado un codigo inválido. El codigo debe ser un valor numérico, intente nuevamente.")
     if validate_identifier(subjects, subject_identifier):
         student_notes = get_notes_by_subject(notes, subject_identifier)
         subject_data = get_by_subject(subjects, subject_identifier)
@@ -176,6 +176,8 @@ def average_subject(notes, subjects):
                 print(f"\nEl promedio de notas de la materia {subject_data["nombre"]} es: {average:.2f}\n")
         else:
             print(f"\nATENCIÓN [!] No se encontraron notas para la materia con ID {subject_identifier}.\n")
+    else:
+        print(f"\nATENCIÓN [!] No se encontro una materia con codigo {subject_identifier}.\n")
 
 
 """ ----------------------------------------------------------------------------------------------"""
@@ -189,15 +191,20 @@ menu_student_average_title = """
 def student_average_subject(notes, subjects):
     # funcion para calcular el promedio de notas de un estudiante
     print(menu_student_average_title)
-    identifier = validate_int_input("\n- Ingrese el legajo del estudiante para calcular su promedio de notas: ", "ERROR [!] Se ha ingresado un legajo inválido. El legajo no puede ser 0 y solo se permiten valores numéricos, intente nuevamente.")
+    identifier = validate_int_input("\n- Ingrese el legajo del estudiante para calcular el promedio de notas: ", "ERROR [!] Se ha ingresado un legajo inválido. El legajo debe ser un valor numérico, intente nuevamente.")
     if validate_existing(notes, identifier):
-        subject_identifier = validate_int_input("- Ingrese el código de la materia para calcular el promedio de notas: ", "ERROR [!] Se ha ingresado un ID inválido. El ID no puede ser 0 y solo se permiten valores numéricos, intente nuevamente.")
+        subject_identifier = validate_int_input("- Ingrese el código de la materia para calcular el promedio de notas: ", "ERROR [!] Se ha ingresado un codigo inválido. El codigo debe ser un valor numérico, intente nuevamente.")
         if validate_identifier_by_subject(notes, subject_identifier):
             student_notes = get_notes_by_subject_student(notes, subject_identifier, identifier)
             subject_data = get_by_subject(subjects, subject_identifier)
             if student_notes:
                 average = get_average(student_notes)
                 if average:
-                    print(f"\nEl promedio de notas del estudiante con legajo {identifier} en la materia {subject_data["codigo"]} es: {average:.2f}\n")
+                    print(f"\nEl promedio de notas del estudiante con legajo {identifier} en la materia {subject_data["nombre"]} es: {average:.2f}\n")
             else:
-                print(f"\nATENCIÓN [!] No se encontraron notas para la materia con ID {subject_identifier} del estudiante con legajo {identifier}.\n")
+                print(f"\nATENCIÓN [!] No se encontraron notas para la materia {subject_identifier} del estudiante con legajo {identifier}.\n")
+        else:
+            print(f"\nATENCIÓN [!] No se encontro una materia con codigo {subject_identifier}.\n")
+    else:
+        print(f"\nATENCIÓN [!] No se encontro un estudiante con legajo {identifier}.\n")
+

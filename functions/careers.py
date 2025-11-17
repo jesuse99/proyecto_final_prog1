@@ -1,4 +1,4 @@
-from utils.validations import validate_existing, validate_identifier, validate_int_input, validate_menu_option, validate_string_input, validate_continue, validate_existing_career
+from utils.validations import validate_existing, validate_identifier, validate_int_input, validate_submenu_option, validate_string_input, validate_continue, validate_existing_career
 from utils.auxiliars import get_average, get_by_career, get_notes_by_subject, get_notes_by_subject_student, get_subjects_by_career, set_position, set_identifier
 from utils.filehandler import get_data, set_data
 
@@ -100,7 +100,7 @@ def edit_career(careers):
         # si el legajo existe, se procede a la edicion
         print(f"\nEditando carrera con codigo: {code}")
         print(menu_edit_career)
-        option = validate_menu_option()
+        option = validate_submenu_option()
         while not option == 3:   
             match option:
                 case 1:
@@ -109,7 +109,7 @@ def edit_career(careers):
                     edit_faculty(careers, code)   
             print("\nVolviendo al menú de edición de carrera...\n")  
             print(menu_edit_career) 
-            option = validate_menu_option() 
+            option = validate_submenu_option() 
     else:
         print("ATENCIÓN [!] No se puede editar una carrera que no existe.")
 
@@ -152,7 +152,7 @@ menu_average_title = """
 def average_career(notes, careers, subjects):
     # funcion para calcular el promedio de notas de una carrera
     print(menu_average_title)
-    career_identifier = validate_int_input("- Ingrese el código de la carrera para calcular el promedio de notas: ", "ERROR [!] Se ha ingresado un ID inválido. El ID no puede ser 0 y solo se permiten valores numéricos, intente nuevamente.")
+    career_identifier = validate_int_input("- Ingrese el código de la carrera para calcular el promedio de notas: ", "ERROR [!] Se ha ingresado un codigo inválido. El codigo debe ser un valor numérico, intente nuevamente.")
     if validate_identifier(careers, career_identifier):
 
         career_notes = [] 
@@ -169,6 +169,9 @@ def average_career(notes, careers, subjects):
                 print(f"\nEl promedio de notas de la carrera {career_data["nombre"]} es: {average:.2f}\n")
         else:
             print(f"\nATENCIÓN [!] No se encontraron notas para la carrera con ID {career_identifier}.\n")
+    else:
+        print(f"\nATENCIÓN [!] No se encontro una carrera con codigo {career_identifier}.\n")
+
 
 """ ----------------------------------------------------------------------------------------------"""
 """ ############################### CALCULAR PROMEDIO DE ESTUDIANTE POR CARRERA ################# """
@@ -181,9 +184,9 @@ menu_student_average_title = """
 def student_average_career(notes, careers, subjects):
     # funcion para calcular el promedio de notas de un estudiante
     print(menu_student_average_title)
-    identifier = validate_int_input("\n- Ingrese el legajo del estudiante para calcular su promedio de notas: ", "ERROR [!] Se ha ingresado un legajo inválido. El legajo no puede ser 0 y solo se permiten valores numéricos, intente nuevamente.")
+    identifier = validate_int_input("\n- Ingrese el legajo del estudiante para calcular su promedio de notas: ", "ERROR [!] Se ha ingresado un legajo inválido. El legajo debe ser un valor numérico, intente nuevamente.")
     if validate_existing(notes, identifier):
-        career_identifier = validate_int_input("- Ingrese el código de la carrera para calcular el promedio de notas: ", "ERROR [!] Se ha ingresado un ID inválido. El ID no puede ser 0 y solo se permiten valores numéricos, intente nuevamente.")
+        career_identifier = validate_int_input("- Ingrese el código de la carrera para calcular el promedio de notas: ", "ERROR [!] Se ha ingresado un codigo inválido. El codigo debe ser un valor numérico, intente nuevamente.")
         if validate_identifier(careers, career_identifier):
 
             career_notes = [] 
@@ -198,5 +201,9 @@ def student_average_career(notes, careers, subjects):
                 if average:
                     print(f"\nEl promedio de notas del estudiante con legajo {identifier} en la carrera {career_data["nombre"]} es: {average:.2f}\n")
             else:
-                print(f"\nATENCIÓN [!] No se encontraron notas para la carrera con ID {career_identifier} del estudiante con legajo {identifier}.\n")
+                print(f"\nATENCIÓN [!] No se encontraron notas para la carrera  {career_identifier} del estudiante con legajo {identifier}.\n")
+        else:
+            print(f"\nATENCIÓN [!] No se encontro una carrera con codigo {career_identifier}.\n")
+    else:
+        print(f"\nATENCIÓN [!] No se encontro un estudiante con legajo {identifier}.\n")
 

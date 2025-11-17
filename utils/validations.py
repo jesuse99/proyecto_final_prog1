@@ -7,15 +7,30 @@ import re
 """ --------------------------------------------------------------------------------------------------------"""
 
 def validate_menu_option():
-    # Funcion para validar la opcion ingresada por el usuario en el menú. Debe ser un numero entre 1 y 6. 
+    # Funcion para validar la opcion ingresada por el usuario en el menú. Debe ser un numero entre 1 y 7. 
     option = input("Seleccione una opción: ") # Solicito la opción al usuario
 
-    if option.isdigit() and 1 <= int(option) <= 6: # Si la opción es un número entre 1 y 6, la retorno
+    if option.isdigit() and 1 <= int(option) <= 7: # Si la opción es un número entre 1 y 7, la retorno
         return int(option)
     
     # Si la opción no es válida, muestro un mensaje de error y solicito la opción nuevamente
     print("Se ha ingresado una opción inválida. La opción no puede estar vacía o ser 0. Solo se permiten valores numéricos, intente nuevamente.")
     return validate_menu_option() # Llamada recursiva para solicitar la opción nuevamente si la opción ingresada no es válida
+
+""" --------------------------------------------------------------------------------------------------------"""
+""" ############################### VALIDAR OPCIÓN INGRESADA PARA LOS SUBMENÚS ############################### """
+""" --------------------------------------------------------------------------------------------------------"""
+
+def validate_submenu_option():
+    # Funcion para validar la opcion ingresada por el usuario en los submenús. Debe ser un numero entre 1 y 5. 
+    option = input("Seleccione una opción: ") # Solicito la opción al usuario
+
+    if option.isdigit() and 1 <= int(option) <= 5: # Si la opción es un número entre 1 y 5, la retorno
+        return int(option)
+    
+    # Si la opción no es válida, muestro un mensaje de error y solicito la opción nuevamente
+    print("Se ha ingresado una opción inválida. La opción no puede estar vacía o ser 0. Solo se permiten valores numéricos, intente nuevamente.")
+    return validate_submenu_option() # Llamada recursiva para solicitar la opción nuevamente si la opción ingresada no es válida
 
 
 """ --------------------------------------------------------------------------------------------------------------------"""

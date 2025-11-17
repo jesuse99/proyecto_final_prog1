@@ -1,4 +1,4 @@
-from utils.validations import validate_existing_student, validate_string_input,validate_int_input,validate_identifier, validate_identifier_by_student, validate_continue, validate_menu_option
+from utils.validations import validate_existing_student, validate_string_input,validate_int_input,validate_identifier, validate_identifier_by_student, validate_continue, validate_submenu_option
 from utils.auxiliars import set_position, set_identifier_by_student, get_by_student, get_by_career, get_students_by_career
 from utils.filehandler import get_data, set_data
 
@@ -112,7 +112,7 @@ def edit_student(students):
         # si el legajo existe, se procede a la edicion
         print(f"\nEditando estudiante con legajo: {identifier}")
         print(menu_edit_student)
-        option = validate_menu_option()
+        option = validate_submenu_option()
         while not option == 3:   
             match option:
                 case 1:
@@ -121,7 +121,7 @@ def edit_student(students):
                     edit_degree(students, identifier)   
             print("\nVolviendo al menú de edición de estudiantes...\n")  
             print(menu_edit_student) 
-            option = validate_menu_option() 
+            option = validate_submenu_option() 
     else:
         print("ATENCIÓN [!] No se puede editar un estudiante que no existe.")
 
