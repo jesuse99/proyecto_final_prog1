@@ -136,10 +136,10 @@ def validate_existing_career(careers, career_name):
 """ ############################### VALIDAR EXISTENCIA DE NOTA ############################### """
 """ ----------------------------------------------------------------------------------------------"""
 
-def validate_existing_note(notes, subject_code, student_identifier, note_value, date_value):
+def validate_existing_note(notes, subject_code, student_identifier, date_value):
     # función para verificar que una nota está registrada en notes
     for note in notes:
-        if int(note["materia"]) == int(subject_code) and int(note["legajo"]) == int(student_identifier) and int(note["nota"]) == int(note_value) and note["fecha"].upper() == date_value.upper():
+        if int(note["materia"]) == int(subject_code) and int(note["legajo"]) == int(student_identifier) and note["fecha"].upper() == date_value.upper():
             return True
     return False
 

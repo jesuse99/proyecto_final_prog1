@@ -58,7 +58,7 @@ def add_note(notes, students, subjects):
         if validate_identifier_by_student(students, student_identifier):
             note_value = get_note()
             date_value = get_date()
-            if not validate_existing_note(notes, subject_code, student_identifier, note_value, date_value):
+            if not validate_existing_note(notes, subject_code, student_identifier, date_value):
                 notes.append({ "id": pos, "materia": subject_code, "legajo": student_identifier, "nota": note_value, "fecha": date_value })
                 set_data('notes', notes)
                 print("\n [+] Nota agregada correctamente.\n")
@@ -96,8 +96,8 @@ def get_date():
 def set_new_note(notes, student_identifier, subject_identifier, note_date):
     # funcion para editar una nota con una nueva nota ingresada por consola 
     for note in notes:
-        # Normalizar comparaciones a strings (las filas cargadas desde JSON son strings)
-        if str(note["materia"]) == str(subject_identifier) and str(note["legajo"]) == str(student_identifier) and str(note["fecha"]) == str(note_date):
+        # Normalizar comparaciones (las filas cargadas desde JSON son strings y number)
+        if int(note["materia"]) == int(subject_identifier) and int(note["legajo"]) == int(student_identifier) and str(note["fecha"]) == str(note_date):
             note["nota"] = int(get_note())
             note["fecha"] = str(get_date())
             set_data('notes', notes)
@@ -122,11 +122,9 @@ def edit_notes(notes, subjects):
             # Validamos que la fecha exista asociada a alguna nota del estudiante y materia indicados
             # validate_date sólo comprueba existencia de la fecha en cualquier nota, por eso llamamos directamente a set_new_note
             print(f"\nEditando notas del estudiante con legajo: {identifier}")
-            found = set_new_note(notes, identifier, subject_identifier, note_date)
-            if not found:
-                print("ATENCIÓN [!] No se pudo editar: no existe una nota con esa materia/legajo/fecha.")
+            set_new_note(notes, identifier, subject_identifier, note_date)
         else:         
-            print("ATENCIÓN [!] No se editar una nota para una materia que no existe.")
+            print("ATENCIÓN [!] No se puede editar una nota para una materia que no existe.")
     else:
         print("ATENCIÓN [!] No se puede editar las notas de un estudiante que no existe.")
 

@@ -136,7 +136,7 @@ menu_delete_student = """
 
 def delete_student(students):
     # Funcion para eliminar un estudiante a la lista de estudiantes
-    identifier = validate_int_input("\n- Ingrese el legajo del estudiante que desea editar: ", "ERROR [!] Se ha ingresado un legajo inválido. El legajo no puede ser 0 y solo se permiten valores numéricos, intente nuevamente.")
+    identifier = validate_int_input("\n- Ingrese el legajo del estudiante que desea eliminar: ", "ERROR [!] Se ha ingresado un legajo inválido. El legajo no puede ser 0 y solo se permiten valores numéricos, intente nuevamente.")
     if validate_identifier_by_student(students, identifier): 
             student = get_by_student(students, identifier) # obtenemos el estudiante por legajo
             students.remove(student) # eliminamos el estudiante de la lista

@@ -9,13 +9,13 @@
         "id": 2,
         "codigo": 2897,
         "nombre": "Anatomía",
-        "carrera": 1010
+        "carrera": 2020
     },
     {
         "id": 3,
         "codigo": 4120,
         "nombre": "Derecho Penal",
-        "carrera": 2020
+        "carrera": 3030
     },
     {
         "id": 4,

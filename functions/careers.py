@@ -1,5 +1,5 @@
 from utils.validations import validate_existing, validate_identifier, validate_int_input, validate_submenu_option, validate_string_input, validate_continue, validate_existing_career
-from utils.auxiliars import get_average, get_by_career, get_notes_by_subject, get_notes_by_subject_student, get_subjects_by_career, set_position, set_identifier
+from utils.auxiliars import get_average, get_by_career, get_notes_by_career, get_notes_by_career_student, set_position, set_identifier
 from utils.filehandler import get_data, set_data
 
 careers = get_data('careers')
@@ -154,14 +154,7 @@ def average_career(notes, careers, subjects):
     print(menu_average_title)
     career_identifier = validate_int_input("- Ingrese el código de la carrera para calcular el promedio de notas: ", "ERROR [!] Se ha ingresado un codigo inválido. El codigo debe ser un valor numérico, intente nuevamente.")
     if validate_identifier(careers, career_identifier):
-
-        career_notes = [] 
-        lista1 = get_subjects_by_career(subjects, career_identifier)
-        for i in lista1:
-            lista2 = get_notes_by_subject(notes, i)
-            for j in lista2:
-                career_notes.append(j)
-
+        career_notes = get_notes_by_career(subjects, notes, career_identifier)
         career_data = get_by_career(careers, career_identifier)
         if career_notes:
             average = get_average(career_notes)
@@ -182,19 +175,13 @@ menu_student_average_title = """
 """
 
 def student_average_career(notes, careers, subjects):
-    # funcion para calcular el promedio de notas de un estudiante
+    # funcion para calcular el promedio de notas de un estudiante por carrera
     print(menu_student_average_title)
     identifier = validate_int_input("\n- Ingrese el legajo del estudiante para calcular su promedio de notas: ", "ERROR [!] Se ha ingresado un legajo inválido. El legajo debe ser un valor numérico, intente nuevamente.")
     if validate_existing(notes, identifier):
         career_identifier = validate_int_input("- Ingrese el código de la carrera para calcular el promedio de notas: ", "ERROR [!] Se ha ingresado un codigo inválido. El codigo debe ser un valor numérico, intente nuevamente.")
         if validate_identifier(careers, career_identifier):
-
-            career_notes = [] 
-            lista1 = get_subjects_by_career(subjects, career_identifier)
-            for i in lista1:
-                lista2 = get_notes_by_subject(notes, i["codigo"])
-                career_notes.extend(get_notes_by_subject_student(lista2, i["codigo"], identifier))
-
+            career_notes = get_notes_by_career_student(subjects, notes, career_identifier, identifier)
             career_data = get_by_career(careers, career_identifier)
             if career_notes:
                 average = get_average(career_notes)

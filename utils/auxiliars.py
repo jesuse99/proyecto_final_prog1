@@ -130,6 +130,31 @@ def get_notes_by_subject_student(notes, subject_id, student_id):
             subject_notes.append(note)
     return subject_notes
 
+""" ---------------------------------------------------------------------------------------------------------"""
+""" ############################### OBTENER NOTAS POR CODIGO CARRERA ####################################### """
+""" ---------------------------------------------------------------------------------------------------------"""
+
+def get_notes_by_career(subjects, notes, career_id):
+    # funcion para obtener las notas de una carrera por codigo
+    career_notes = [] 
+    subjects_career = get_subjects_by_career(subjects, career_id)
+    for subject in subjects_career:
+        notes_subject = get_notes_by_subject(notes, subject["codigo"])
+        career_notes.extend(notes_subject)
+    return career_notes
+
+""" ---------------------------------------------------------------------------------------------------------"""
+""" ############################### OBTENER NOTAS POR CARRERA Y ESTUDIANTE ################################# """
+""" ---------------------------------------------------------------------------------------------------------"""
+
+def get_notes_by_career_student(subjects, notes, career_id, student_id):
+    # funcion para obtener las notas de una carrera por codigo y estudiante
+    career_notes = [] 
+    subjects_career = get_subjects_by_career(subjects, career_id)
+    for subject in subjects_career:
+        notes_subject = get_notes_by_subject_student(notes, subject["codigo"], student_id)
+        career_notes.extend(notes_subject)
+    return career_notes
 
 """ ------------------------------------------------------------------------------------------"""
 """ ############################### OBTENER PROMEDIO DE NOTAS ############################### """
