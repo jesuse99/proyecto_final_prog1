@@ -97,3 +97,12 @@ Menú principal → Submenú → Acción → Validación → Resultado → Retor
 ##  Repositorio original
 
 Proyecto base: [jesuse99/proyecto_final_prog1](https://github.com/jesuse99/proyecto_final_prog1)
+
+## Try me: 
+
+Hemos creado una demostración interactiva en línea que te permite experimentar las funciones clave de la aplicación directamente desde tu navegador web 
+[NOTECOM - Sistema de calificaciones UADE]( https://www.pythonanywhere.com/shared_console/627310cf-ceef-48c8-8755-d4de9f7e8293)
+
+## Lanzamiento 1.0.0
+
+[Programa publicado](https://github.com/jesuse99/proyecto_final_prog1/releases/tag/v1.0.0)
